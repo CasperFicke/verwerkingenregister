@@ -1,0 +1,52 @@
+<!-- templates/includes/navbar.html -->
+
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- Logo -->
+  <a class="nav-brand" href="{% url 'site-basis:home' %}"><img src="{% static 'images/logo.png' %}" alt=""></a>
+<!-- buttons -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <!-- Linkerkant van de Navbar -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'site-basis:home' %}">Home </a>
+      </li> 
+      <!-- Verwerkigen menu -->
+      <li class="nav-item"><a class="nav-link" href="{% url 'verwerkingen:all-verwerkingen' %}">Verwerkingen</a></li>     
+    </ul>
+
+    <!-- Rechterkant van de Navbar -->
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <!-- Usermanagement -->
+      {% if user.is_authenticated %}
+      <li class="nav-item dropdown dropstart">
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ user.username }}
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'users:edit_usersettings' %}">Edit Settings</a></li>
+          <li><a class="dropdown-item" href="{% url 'users:change_password' %}">Change password</a></li>
+          {% if user.userprofile.id %}
+                <a class="dropdown-item" href="{% url 'users:edit_profile' user.userprofile.id %}">Edit Profile</a>
+                <a class="dropdown-item" href="{% url 'users:show_profile' user.userprofile.id %}">Show Profile</a>
+              {% else %}
+                <a class="dropdown-item" href="{% url 'users:reate_profile' %}">Create Profile</a>
+              {% endif %}
+          <li><a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a></li>
+        </ul>
+      </li>              
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

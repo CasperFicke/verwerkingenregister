@@ -32,10 +32,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # apps
+    'site_basis.apps.SiteBasisConfig',
     'users.apps.UsersConfig',
     'verwerkingen.apps.VerwerkingenConfig',
     # support packages
     'django_extensions',
+    'crispy_forms',
     'import_export',
 ]
 

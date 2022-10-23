@@ -2,12 +2,15 @@ asgiref==3.5.2
 defusedxml==0.7.1
 diff-match-patch==20200713
 Django==4.1.2
+django-crispy-forms==1.14.0
 django-extensions==3.2.1
 django-import-export==3.0.1
 et-xmlfile==1.1.0
 MarkupPy==1.14
 odfpy==1.4.1
 openpyxl==3.0.10
+Pillow==9.2.0
+pycountry==22.3.5
 python-dotenv==0.21.0
 PyYAML==6.0
 sqlparse==0.4.3
