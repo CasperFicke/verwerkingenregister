@@ -1,0 +1,9 @@
+# algoritmes/apps.py
+
+# django
+from django.apps import AppConfig
+
+
+class AlgoritmesConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'algoritmes'
