@@ -32,6 +32,7 @@ INSTALLED_APPS = [
   # apps
   'site_basis.apps.SiteBasisConfig',
   'users.apps.UsersConfig',
+  'rechten.apps.RechtenConfig',
   'verwerkingen.apps.VerwerkingenConfig',
   'algoritmes.apps.AlgoritmesConfig',
   # support packages

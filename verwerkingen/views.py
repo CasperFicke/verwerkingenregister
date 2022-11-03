@@ -1,12 +1,17 @@
 # verwerkingen/views.py
 
 # django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
+
 from django.core.paginator import Paginator
 
 # local
 from .models import Verwerking
+from .forms import VerwerkingForm
 
 #all verwerkingen classbased
 class all_verwerkingenView(ListView):
@@ -34,3 +39,37 @@ class show_verwerkingView(DetailView):
   context_object_name = 'verwerking'
   def get_object(self):
     return Verwerking.objects.get(pk=self.kwargs['verwerking_uuid'])
+
+# add verwerking classbased
+class add_verwerkingView(LoginRequiredMixin, CreateView):
+  model         = Verwerking
+  fields        = '__all__'
+  template_name = 'verwerkingen/add_verwerking.html'
+  success_url   = '/verwerkingen/'
+
+# edit verwerking classbased
+class edit_verwerkingView(UpdateView):
+  form_class    = VerwerkingForm
+  fields        = '__all__'
+  template_name = 'verwerkingen/edit_verwerking.html'
+  success_url   = 'all-verwerkingen'
+
+  def form_valid(self, form):
+    form.save()
+    return super().form_valid(form)
+
+# delete verwerking classbased
+# class delete_verwerkingView(DeleteView):
+#   model         = Verwerking
+#   success_url = reverse_lazy('all-verwerkingen')
+ 
+# delete verwerking functionbased
+def delete_verwerking(request, verwerking_uuid):
+  verwerking = Verwerking.objects.get(uuid=verwerking_uuid)
+  if request.user.is_superuser:
+    verwerking.delete()
+    messages.success(request, ("Verwerking " + verwerking.naam + " has been deleted!"))
+    return redirect ('all-verwerkingen')
+  else:
+    messages.success(request, ("Verwerking " + verwerking.naam + " is not yours to delete!"))
+    return redirect ('all-verwerkingen')

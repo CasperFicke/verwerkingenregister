@@ -11,7 +11,7 @@
    <div class="container">
     <div class="row">
       <div class="col-12">
-        <a href="{% url 'index' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'all-verwerkingen' %}"> Verwerkingen</a> / {{ verwerking.naam }}
+        <a href="{% url 'site-basis:home' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'verwerkingen:all-verwerkingen' %}"> Verwerkingen</a> / {{ verwerking.naam }}
       </div>
       <hr>
     </div>

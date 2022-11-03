@@ -37,8 +37,8 @@
                 {{ betrokkene.naam }}, 
               {% endfor %}</td>
                 {% if user.is_authenticated %}
-                <td><a href="{% url 'edit-verwerking' verwerking.uuid %}" class="btn btn-outline-secondary">Edit</a></td>
-                <td><a href="{% url 'delete-verwerking' verwerking.uuid %}" class="btn btn-outline-secondary">Delete</a></td>
+                <td><a href="{% url 'verwerkingen:edit-verwerking' verwerking.uuid %}" class="btn btn-outline-secondary">Edit</a></td>
+                <td><a href="{% url 'verwerkingen:delete-verwerking' verwerking.uuid %}" class="btn btn-outline-secondary">Delete</a></td>
               {% else %}
                 <td>Not allowed</td>
                 <td>Not allowed</td>

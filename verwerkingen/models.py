@@ -190,7 +190,7 @@ class Verwerking(models.Model):
     verbose_name_plural = 'verwerkingen'
   # create absolute url
   def get_absolute_url(self):
-    return reverse('show-verwerking', args=[self.uuid])
+    return reverse('verwerkingen:show-verwerking', args=[self.uuid])
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam

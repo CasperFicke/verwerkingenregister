@@ -1,4 +1,4 @@
-# verwerkigenregister/urs.py
+# verwerkigenregister/urls.py
 
 # django
 from django.contrib import admin
@@ -9,6 +9,7 @@ urlpatterns = [
   # App urls
   path('', include('site_basis.urls', namespace="site-basis")),
   path('', include('users.urls', namespace="users")),
+  path('', include('rechten.urls', namespace="rechten")),
   path('', include('verwerkingen.urls', namespace="verwerkingen")),
   # debug urls
   #path("__debug__", include('debug_toolbar.urls')),

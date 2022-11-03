@@ -50,7 +50,7 @@ def logout_user(request):
   logout(request)
   messages.success(request, ('Succesfully logged out'))
   # Redirect to a success page.
-  return redirect('home')
+  return redirect('site-basis:home')
 
 # Register view
 def register_user(request):
