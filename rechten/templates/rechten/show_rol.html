@@ -34,9 +34,11 @@
         {% for attribuut in rol.attributes.all %}   
           <tr>
             <td scope="row">{{ attribuut.naam }}</td>
+            <td scope="row">{{ attribuut.publiceren.rol }}</td>
             <td>{% for persoonsgegeven in betrokkene.persoonsgegevens.all %}
               {{ persoonsgegeven.type }}, 
-              {% endfor %}</td>
+              {% endfor %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>

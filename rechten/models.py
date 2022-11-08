@@ -37,7 +37,7 @@ class Rol(TimeStampedModel, ActivatorModel, models.Model):
   naam         = models.CharField('rol', max_length=100)
   beschrijving = models.TextField('Beschrijving', blank=True)
   # relaties
-  attributes   = models.ManyToManyField(Verwerkingattribuut, blank=True, related_name='rollen') 
+  # attributes   = models.ManyToManyField(Verwerkingattribuut, blank=True, related_name='rollen') 
   # secundair
   uuid         = models.UUIDField(unique=True, primary_key=True, default=uuid.uuid4, help_text='Unique identifier (UUID4)')
   
@@ -48,3 +48,19 @@ class Rol(TimeStampedModel, ActivatorModel, models.Model):
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
+
+# publiceer attribuut
+class PubliceerAttribuut(TimeStampedModel, ActivatorModel, models.Model):
+  class Meta:
+    verbose_name_plural = 'publiceer attributes'
+  # attibutes
+  publiceer   = models.BooleanField(default=False)
+  # relaties
+  rol         = models.ForeignKey(Rol, on_delete=models.CASCADE, related_name='publiceren') 
+  attribuut   = models.ForeignKey(Verwerkingattribuut, on_delete=models.CASCADE, related_name='publiceren') 
+  # secundair
+  uuid         = models.UUIDField(unique=True, primary_key=True, default=uuid.uuid4, help_text='Unique identifier (UUID4)')
+  
+  # functie om model in de admin web-pagina te kunnen presenteren
+  #def __str__(self):
+  #  return self.uuid

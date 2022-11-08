@@ -5,7 +5,8 @@ from django.contrib import admin
 # local
 from .models import (
   Rol,
-  Verwerkingattribuut
+  Verwerkingattribuut,
+  PubliceerAttribuut
   )
 
 # Register Verordening Rol
@@ -21,3 +22,9 @@ class VerwerkingattribuutAdmin(admin.ModelAdmin):
   ordering     = ('naam',)
 # overall admin area
 admin.site.register(Verwerkingattribuut, VerwerkingattribuutAdmin)
+
+# Register Publiceer
+class PubliceerAttribuutAdmin(admin.ModelAdmin):
+  list_display = ('rol', 'attribuut', 'publiceer')
+# overall admin area
+admin.site.register(PubliceerAttribuut, PubliceerAttribuutAdmin)

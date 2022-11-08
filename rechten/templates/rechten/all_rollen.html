@@ -15,16 +15,24 @@
           <th scope="col">rol</th>
           <th scope="col">rol beschrijving</th>
           <th scope="col">rol attributes</th>
+          <th scope="col">publiceer attribute</th>
         </tr>
       </thead>
       <tbody>
         {% if rollen_list %}
           {% for rol in rollen_list %}   
             <tr>
+              <!-- kolom 1 naam -->
               <td scope="row"><a href="{{ rol.get_absolute_url }}">{{ rol.naam }}</a></td>
+              <!-- kolom 2 beschrijving -->
               <td> {{ rol.beschrijving }}</td>
-              <td> {% for attribuut in rol.attributes.all %}
-                {{attribuut.naam }}, 
+              <!-- kolom 3 attribuut -->
+              <td> {% for attribuut in rol.publiceren.all %}
+                {{attribuut.attribuut }},<br>
+              {% endfor %}</td>
+              <!-- kolom 4 atriibuur publiceren -->
+              <td> {% for attribuut in rol.publiceren.all %}
+                {{attribuut.publiceer }},<br>
               {% endfor %}</td>
             </tr>
           {% endfor %}  

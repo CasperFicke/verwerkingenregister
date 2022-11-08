@@ -26,7 +26,6 @@ class all_rechtenView(generic.TemplateView):
 		context["title"]    = 'rechten-index'
 		return context
 
-
 # all rollen classbased
 class all_rollenView(ListView):
   model               = Rol
