@@ -1,0 +1,24 @@
+<!-- algoritmes/templates/algoritmes/show_algoritme.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ algoritme.naam }}
+{% endblock title %}
+
+{% block content %}
+   <!-- ***** Breadcrumb Area Start ***** -->
+   <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <a href="{% url 'site-basis:home' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'algoritmes:all-algoritmes' %}"> Algoritmes</a> / {{ algoritme.naam }}
+      </div>
+      <hr>
+    </div>
+  </div>
+  <!-- ***** Breadcrumb Area End ***** -->
+  <div class="container">
+    Algoritme: {{ algoritme.naam }} <br>
+    <br>
+  </div>
+{% endblock content %}

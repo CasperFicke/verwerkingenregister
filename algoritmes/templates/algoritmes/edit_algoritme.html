@@ -1,0 +1,49 @@
+<!-- algoritmes/templates/algoritmes/edit_algoritme.html -->
+
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock title %}
+{% block content %}
+  {% if user.is_authenticated %}
+    {% if user.is_superuser %}
+      <!-- ***** Breadcrumb Area Start ***** -->
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <a href="{% url 'verwerkingen:home' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'algoritmes:all-algoritmes' %}">Algoritmes</a> / {{ title }}
+          </div>
+          <hr>
+        </div>
+        <h2>{{ title }} {{ algoritme.naam }}</h2>
+      </div>
+      <!-- ***** Breadcrumb Area End ***** -->
+      <div class="container">
+        {% if submitted %}
+        succesfully submitted
+        {% else %}
+          <div class="col-md-6 offset-md-3">
+            <form action="" method=POST>
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" value="Update" class="btn btn-secondary">
+            </form>
+          </div>
+          <br>
+          <a href="{% url 'algoritmes:all-algoritmes' %}" class="btn btn-secondary">Cancel</a>
+          <br>
+        {% endif %}
+        <br>
+      </div>
+    {% else %}
+      <h2> Access Denied</h2>
+      <p> Alleen de algoritmes manager kan een algoritme updaten...
+      <br>
+      Logged in User: {{ user }}
+      <br>
+      </p>
+    {% endif %}
+  {% else %}
+    <h3> Opvragen van deze pagina is niet toegestaan. Hiervoor moet u ingelogd zijn!</h3>
+    <a href="{% url 'users:login' %}?next={{request.path}}">Login here</a>
+  {% endif %}
+{% endblock content %}

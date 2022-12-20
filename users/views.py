@@ -65,7 +65,7 @@ def register_user(request):
       user = authenticate(request, username=username, password=password)
       login(request, user)
       messages.success(request, ("You're Registered"))
-      return redirect('index')
+      return redirect('site-basis:home')
   else:
     form = SignUpForm()
   context = {

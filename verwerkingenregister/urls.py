@@ -11,6 +11,7 @@ urlpatterns = [
   path('', include('users.urls', namespace="users")),
   path('', include('rechten.urls', namespace="rechten")),
   path('', include('verwerkingen.urls', namespace="verwerkingen")),
+  path('', include('algoritmes.urls', namespace="algoritmes")),
   # debug urls
   #path("__debug__", include('debug_toolbar.urls')),
 ]

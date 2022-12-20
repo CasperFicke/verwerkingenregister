@@ -1,0 +1,39 @@
+<!-- algoritmes/templates/algoritmes/all_algoritmes.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title|title }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    <table class="table table-striped table-sm table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">algoritme</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if algoritmes_list %}
+         {% for algoritme in algoritmes_list %}   
+            <tr>
+              <th scope="row"><a href="{{ algoritme.get_absolute_url }}">{{ algoritme.naam }}</a></th>
+              {% if user.is_authenticated %}
+                <td><a href="{% url 'algoritmes:edit-algoritme' algoritme.id %}" class="btn btn-outline-secondary">Edit</a></td>
+                <td><a href="{% url 'algoritmes:delete-algoritme' algoritme.id %}" class="btn btn-outline-secondary">Delete</a></td>
+              {% else %}
+                <td>Not allowed</td>
+                <td>Not allowed</td>
+              {% endif %}
+            </tr>
+          {% endfor %}  
+        {% endif %}
+      </tbody>
+    </table>
+    {% include 'includes/pagina_nav.html' %}
+  </div>
+{% endblock content %}
