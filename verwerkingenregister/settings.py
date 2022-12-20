@@ -35,6 +35,7 @@ INSTALLED_APPS = [
   'rechten.apps.RechtenConfig',
   'verwerkingen.apps.VerwerkingenConfig',
   'algoritmes.apps.AlgoritmesConfig',
+  'waarmerken.apps.WaarmerkenConfig',
   # support packages
   'django_extensions',
   'crispy_forms',
