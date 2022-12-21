@@ -1,0 +1,43 @@
+<!-- waarmerken/templates/waarmerken/all_documentwaarmerkingen.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title|title }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    <table class="table table-striped table-sm table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Zaaktype</th>
+          <th scope="col">Documenttype</th>
+          <th scope="col">waarmerkniveau</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if documentwaarmerkingen_list %}
+         {% for documentwaarmerking in documentwaarmerkingen_list %}   
+            <tr>
+              <th scope="row"><a href="{{ documentwaarmerking.zaaktype.get_absolute_url }}">{{ documentwaarmerking.zaaktype }}</a></th>
+              <td> {{ documentwaarmerking.documenttype }}</td>
+              <td> {{ documentwaarmerking.waarmerkniveau }}</td>
+              {% if user.is_authenticated %}
+                <td><a href="{% url 'waarmerken:edit-documentwaarmerking' documentwaarmerking.id %}" class="btn btn-outline-secondary">Edit</a></td>
+                <td><a href="{% url 'waarmerken:delete-documentwaarmerking' documentwaarmerking.id %}" class="btn btn-outline-secondary">Delete</a></td>
+              {% else %}
+                <td>Not allowed</td>
+                <td>Not allowed</td>
+              {% endif %}
+            </tr>
+          {% endfor %}  
+        {% endif %}
+      </tbody>
+    </table>
+    {% include 'includes/pagina_nav.html' %}
+  </div>
+{% endblock content %}

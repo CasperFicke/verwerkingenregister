@@ -70,12 +70,7 @@ class Documentwaarmerking(
   '''
   class Meta:
     verbose_name_plural = "Document waarmerkingen"
-  # attributes
-  naam = models.CharField('documentwaarmerking', max_length=200)
   # relaties
-  zaaktype       = models.ManyToManyField(Zaaktype, related_name='documentwaarmerkingen')
-  documenttype   = models.ManyToManyField(Documenttype, related_name='documentwaarmerkingen')
-  waarmerkniveau = models.ManyToManyField(Waarmerkniveau, related_name='documentwaarmerkingen')
-
-  def __str__(self):
-    return f'{self.naam}'
+  zaaktype       = models.ForeignKey(Zaaktype, null=True, on_delete=models.CASCADE)
+  documenttype   = models.ForeignKey(Documenttype, null=True, on_delete=models.CASCADE)
+  waarmerkniveau = models.ForeignKey(Waarmerkniveau, null=True, on_delete=models.CASCADE)

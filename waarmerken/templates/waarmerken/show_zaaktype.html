@@ -1,0 +1,28 @@
+<!-- waarmerken/templates/waarmerken/show_zaaktype.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ zaaktype.naam }}
+{% endblock title %}
+
+{% block content %}
+   <!-- ***** Breadcrumb Area Start ***** -->
+   <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <a href="{% url 'site-basis:home' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'waarmerken:all-documentwaarmerkingen' %}"> Documentwaarmerkingen</a> / {{ zaaktype.naam }}
+      </div>
+      <hr>
+    </div>
+  </div>
+  <!-- ***** Breadcrumb Area End ***** -->
+  <div class="container">
+    Zaaktype: {{ zaaktype.naam }} <br>
+    bij dit zaaktype horende documentwaarmerkingen:
+    {% for documenttype in zaaktype.documenttypes.all %}   
+        <p>{{ documenttype.naam }}</p>
+      {% endfor %}
+    <br>
+  </div>
+{% endblock content %}

@@ -5,12 +5,14 @@ from django.urls import path
 
 # local
 from . import views
-#from .views import all_algoritmesView, show_algoritmeView, edit_algoritmeView
+from .views import edit_documentwaarmerkingView, show_zaaktypeView
 
 app_name = "waarmerken"
 
 urlpatterns = [
-  # Algoritmes
-  path('waarmerken/'     , views.all_documentwaarmerkingenView.as_view(), name='all-documentwaarmerkingen'),
-  
+  # documentwaarmerkingen
+  path('waarmerken/'                                , views.all_documentwaarmerkingenView.as_view(), name='all-documentwaarmerkingen'),
+  path('waarmerken/<documentwaarmerking_id>/edit/'  , edit_documentwaarmerkingView.as_view(), name='edit-documentwaarmerking'),
+  path('waarmerken/<documentwaarmerking_id>/delete/', views.delete_documentwaarmerking, name="delete-documentwaarmerking"),
+  path('waarmerken/<zaaktype_id>'                   , show_zaaktypeView.as_view(), name="show-zaaktype"),
   ]

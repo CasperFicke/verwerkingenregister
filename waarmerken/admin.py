@@ -33,7 +33,13 @@ admin.site.register(Waarmerkniveau, WaarmerkniveauAdmin)
 
 
 # Register Documentwaarmerking
-class DocumentwaarmerkingAdmin(admin.ModelAdmin):
-  list_display = ('naam',)
+#class DocumentwaarmerkingAdmin(admin.ModelAdmin):
+#  list_display = ('naam',)
 # overall admin area
-admin.site.register(Documentwaarmerking, DocumentwaarmerkingAdmin)
+#admin.site.register(Documentwaarmerking, DocumentwaarmerkingAdmin)
+
+
+# Register Models without layout:
+myModels = [Documentwaarmerking]  # iterable list
+# overall adminarea
+admin.site.register(myModels)
