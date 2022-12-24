@@ -58,10 +58,15 @@ admin.site.register(Verwerkersovereenkomst, VerwerkersovereenkomstAdmin)
 
 # Register Verwerking
 class VerwerkingAdmin(ImportExportModelAdmin):
-  list_display = ('naam', 'doel', 'buitenEUgedeeld', 'dpia_uitgevoerd',)
+  list_display = ('naam', 'doel', 'hoofdproces', 'buitenEUgedeeld', 'dpia_uitgevoerd',)
   ordering     = ('naam',)
 # overall admin area
 admin.site.register(Verwerking, VerwerkingAdmin)
+
+# inline
+class InLineVerwerking(admin.StackedInline):
+  model = Verwerking
+  extra = 0
 
 # Register Betrokkene
 class BetrokkeneAdmin(ImportExportModelAdmin):
@@ -70,7 +75,15 @@ class BetrokkeneAdmin(ImportExportModelAdmin):
 # overall admin area
 admin.site.register(Betrokkene, BetrokkeneAdmin)
 
+# Register Hoofdproces
+class HoofdprocesAdmin(ImportExportModelAdmin):
+  list_display = ('naam',)
+  ordering     = ('naam',)
+  inlines      = [InLineVerwerking]
+# overall admin area
+admin.site.register(Hoofdproces, HoofdprocesAdmin)
+
 # Register Models without layout:
-myModels = [Gemeente, Team, Verwerker, Ontvanger, Hoofdproces]
+myModels = [Gemeente, Team, Verwerker, Ontvanger]
 # overall adminarea
 admin.site.register(myModels)

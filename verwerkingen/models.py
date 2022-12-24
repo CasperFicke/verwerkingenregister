@@ -18,21 +18,24 @@ class Gemeente(models.Model):
 
 # Verordening model
 class Verordening(models.Model):
-  naam         = models.CharField('verordening-naam', max_length=100)
-  beschrijving = models.CharField('beschrijving', max_length=200, blank=True)
   class Meta:
     ordering = ['naam']
     verbose_name_plural = 'verordeningen'
+  # attributes
+  naam         = models.CharField('verordening-naam', max_length=100)
+  beschrijving = models.CharField('beschrijving', max_length=200, blank=True)
+  
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
 
 # Verantwoordelijke model
 class Verantwoordelijke(models.Model):
-  naam = models.CharField('verantwoordelijke', max_length=100)
   class Meta:
     ordering = ['naam']
     verbose_name_plural = 'verantwoordelijken'
+  # attributes
+  naam = models.CharField('verantwoordelijke', max_length=100)
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
@@ -49,6 +52,10 @@ class Team(models.Model):
 
 # Grondslag model
 class Grondslag(models.Model):
+  class Meta:
+    ordering = ['naam']
+    verbose_name_plural = 'grondslagen'
+  # attributes
   naam         = models.CharField('grondslag naam', max_length=100)
   beschrijving = models.CharField('beschrijving', max_length=200, blank=True)
   # secundair
@@ -56,15 +63,17 @@ class Grondslag(models.Model):
   start_at     = models.DateField('start at', auto_now=True, help_text='Start date of the record')
   end_at       = models.DateField('end at', editable=False, blank=True, null=True, help_text='End date of the record')
   created      = models.DateTimeField(auto_now_add=True, help_text='Date of registration')
-  class Meta:
-    ordering = ['naam']
-    verbose_name_plural = 'grondslagen'
+ 
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
 
 # Persoonsgegevens model
 class Persoonsgegeven(models.Model):
+  class Meta:
+    ordering = ['type']
+    verbose_name_plural = 'persoonsgegevens'
+  # attributes
   type         = models.CharField('type persoonsgegeven', max_length=100)
   beschrijving = models.CharField('beschrijving', max_length=200, blank=True)
   # secundair
@@ -72,15 +81,17 @@ class Persoonsgegeven(models.Model):
   start_at     = models.DateField('start at', auto_now=True, help_text='Start date of the record')
   end_at       = models.DateField('end at', editable=False, blank=True, null=True, help_text='End date of the record')
   created      = models.DateTimeField(auto_now_add=True, help_text='Date of registration')
-  class Meta:
-    ordering = ['type']
-    verbose_name_plural = 'persoonsgegevens'
+  
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.type
 
 # Verwerker model
 class Verwerker(models.Model):
+  class Meta:
+    ordering            = ['naam']
+    verbose_name_plural = 'verwerkers'
+  # attributes
   naam           = models.CharField('verwerker naam', max_length=100)
   beschrijving   = models.CharField('beschrijving', max_length=200, blank=True)
   # secundair
@@ -88,15 +99,17 @@ class Verwerker(models.Model):
   start_at       = models.DateField('start at', auto_now=True, help_text='Start date of the record')
   end_at         = models.DateField('end at', editable=False, blank=True, null=True, help_text='End date of the record')
   created        = models.DateTimeField(auto_now_add=True, help_text='Date of registration')
-  class Meta:
-    ordering            = ['naam']
-    verbose_name_plural = 'verwerkers'
+  
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
 
 # Verwerkersovereenkomst model
 class Verwerkersovereenkomst(models.Model):
+  class Meta:
+    ordering            = ['naam']
+    verbose_name_plural = 'verwerkersovereenkomsten'
+  # attributes
   naam         = models.CharField('verwerkersovereenkomst naam', max_length=100)
   beschrijving = models.CharField('beschrijving', max_length=200, blank=True)
   pdf          = models.FileField(upload_to='documenten/verwerkingsovereenkomsten/', blank=True)
@@ -111,9 +124,7 @@ class Verwerkersovereenkomst(models.Model):
   start_at     = models.DateField('start at', auto_now=True, help_text='Start date of the record')
   end_at       = models.DateField('end at', editable=False, blank=True, null=True, help_text='End date of the record')
   created      = models.DateTimeField(auto_now_add=True, help_text='Date of registration')
-  class Meta:
-    ordering            = ['naam']
-    verbose_name_plural = 'verwerkersovereenkomsten'
+  
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
@@ -154,16 +165,21 @@ class Ontvanger(models.Model):
 
 # Hoofdproces model
 class Hoofdproces(models.Model):
-  naam = models.CharField('hoofdproces', max_length=100)
   class Meta:
     ordering            = ['naam']
     verbose_name_plural = 'hoofdprocessen'
+  # attributes
+  naam = models.CharField('hoofdproces', max_length=100)
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
 
 # Verwerking model
 class Verwerking(models.Model):
+  class Meta:
+    ordering            = ['naam']
+    verbose_name_plural = 'verwerkingen'
+  # attributes
   naam              = models.CharField('verwerkingsactiviteit', max_length=200)
   doel              = models.TextField('doel van verwerking', max_length=250)
   reden_grondslag   = models.TextField('reden van grondslag', max_length=250, blank=True)
@@ -185,9 +201,7 @@ class Verwerking(models.Model):
   start_at          = models.DateField('start at', auto_now=True, help_text='Start date of the record')
   end_at            = models.DateField('end at', editable=False, blank=True, null=True, help_text='End date of the record')
   created           = models.DateTimeField(auto_now_add=True, help_text='Date of registration')
-  class Meta:
-    ordering            = ['naam']
-    verbose_name_plural = 'verwerkingen'
+  
   # create absolute url
   def get_absolute_url(self):
     return reverse('verwerkingen:show-verwerking', args=[self.uuid])
