@@ -16,3 +16,8 @@ urlpatterns = [
   # debug urls
   #path("__debug__", include('debug_toolbar.urls')),
 ]
+
+# Configure Admin area Titles
+admin.site.site_header = "Registers Administration"      # header op admin pagina (blauwe balk)
+admin.site.index_title = "Site Admin" # koptekst op admin pagina en 1e deel in browsertab title
+admin.site.site_title  = "Registers" # toevoeging (2e deel) in browsertab title

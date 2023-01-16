@@ -1,0 +1,16 @@
+<!-- templates/admin/base.html -->
+
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block branding %}
+<div>
+  <img class="logo" class="logo" src= {% static 'images/logo.png' %} />
+  <h1 id="site-name"><a href="{% url 'admin:index' %}">Registers</a></h1>
+</div>
+{% endblock branding %}
+
+
+{% block extrastyle %}
+  <link rel="stylesheet" href={% static 'styles/admin/admin.css' %}>
+{% endblock extrastyle %}

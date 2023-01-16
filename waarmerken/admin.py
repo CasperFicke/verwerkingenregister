@@ -18,12 +18,13 @@ class InLineDocumentwaarmerking(admin.StackedInline):
   extra = 0
 
 # Register Zaaktype
-class ZaaktypeAdmin(admin.ModelAdmin):
+class ZaaktypeAdmin(ImportExportModelAdmin):
   fields             = ('naam', 'status',) # detailpagina (add- & editform)
   list_display       = ('naam', 'status', 'dates_created_modified',) # overzichtpagina (overschrijft "def __str__(self):" uit models.py)
   list_display_links = ('naam', 'dates_created_modified',) # create link on field(s) to detail page.
   list_editable      = ('status',) # make attributes editable in the main admin view
   list_filter        = ('naam', 'status',) # add filter on listed entities
+  list_per_page      = 10 # aantal per pagina
   search_fields      = ('naam',) # add searchfield to search in listed entities
   inlines            = [InLineDocumentwaarmerking]
   # method to build combined field
@@ -34,7 +35,7 @@ class ZaaktypeAdmin(admin.ModelAdmin):
 admin.site.register(Zaaktype, ZaaktypeAdmin)
 
 # Register Documenttype
-class DocumenttypeAdmin(admin.ModelAdmin):
+class DocumenttypeAdmin(ImportExportModelAdmin):
   list_display = ('naam',)
 # overall admin area
 admin.site.register(Documenttype, DocumenttypeAdmin)
