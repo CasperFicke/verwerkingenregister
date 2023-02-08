@@ -13,6 +13,7 @@ urlpatterns = [
   path('', include('verwerkingen.urls', namespace="verwerkingen")),
   path('', include('algoritmes.urls', namespace="algoritmes")),
   path('', include('waarmerken.urls', namespace="waarmerken")),
+  path('', include('bronnen.urls', namespace="bronnen")),
   # debug urls
   #path("__debug__", include('debug_toolbar.urls')),
 ]

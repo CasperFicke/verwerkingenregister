@@ -4,14 +4,47 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 
 from django.core.paginator import Paginator
 
 # local
-from .models import Documentwaarmerking, Zaaktype
+from .models import Documentwaarmerking, Zaaktype, Documenttype
 from .forms import DocumentwaarmerkingForm
+
+
+# index view
+# classbased view 
+class indexView(TemplateView):
+	"""
+    Waarmerken indexe page.
+
+    **Template:**
+
+    :template:`waarmerken/index.html`
+    """
+	template_name = "waarmerken/index.html"
+
+
+# all Zaaktypen classbased
+class all_zaaktypenView(ListView):
+  model               = Zaaktype
+  template_name       = 'waarmerken/all_zaaktypen.html'
+  context_object_name = 'zaaktypen_list'
+  paginate_by         = 10
+  
+  def get_context_data(self, **kwargs):
+    context  = super(all_zaaktypenView, self).get_context_data(**kwargs)
+    context ['title'] = 'Zaaktypen'
+    zaaktypen_list = Zaaktype.objects.all()
+    context ['aantal']= zaaktypen_list.count()
+    paginator         = Paginator(zaaktypen_list, self.paginate_by)
+    page_number       = self.request.GET.get('page')
+    zaaktypen_page = paginator.get_page(page_number)
+    page_count        = "a" * zaaktypen_page.paginator.num_pages
+    context ['page_count'] = page_count
+    return  context
 
 # all Documentwaarmerkingen classbased
 class all_documentwaarmerkingenView(ListView):

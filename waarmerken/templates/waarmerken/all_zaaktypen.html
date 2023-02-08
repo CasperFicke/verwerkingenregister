@@ -1,0 +1,30 @@
+<!-- waarmerken/templates/waarmerken/all_zaaktypen.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title|title }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    <table class="table table-striped table-sm table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Zaaktype</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if zaaktypen_list %}
+         {% for zaaktype in zaaktypen_list %}   
+            <tr>
+              <th scope="row"><a href="{{ zaaktype.get_absolute_url }}">{{ zaaktype.naam }}</a></th>
+            </tr>
+          {% endfor %}  
+        {% endif %}
+      </tbody>
+    </table>
+    {% include 'includes/pagina_nav.html' %}
+  </div>
+{% endblock content %}

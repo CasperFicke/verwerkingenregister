@@ -36,6 +36,7 @@ INSTALLED_APPS = [
   'verwerkingen.apps.VerwerkingenConfig',
   'algoritmes.apps.AlgoritmesConfig',
   'waarmerken.apps.WaarmerkenConfig',
+  'bronnen.apps.BronnenConfig',
   # support packages
   'django_extensions',
   'crispy_forms',
