@@ -17,7 +17,7 @@ urlpatterns = [
   path('users/edit_settings/'  , views.edit_usersettings, name="edit_usersettings"),
   path('users/change_password/', views.change_password, name="change_password"),
   # userprofile
-  path('users/<int:pk>/profile/'     , ShowProfileView.as_view(), name='show_profile'),
-  path('users/<int:pk>/edit_profile/', EditProfileView.as_view(), name='edit_profile'),
-  path('users/create_profile/'       , CreateProfileView.as_view(), name='create_profile'),
+  path('users/<int:pk>/profile/'     , ShowProfileView.as_view(), name='show-profile'),
+  path('users/<int:pk>/edit_profile/', EditProfileView.as_view(), name='edit-profile'),
+  path('users/create_profile/'       , CreateProfileView.as_view(), name='create-profile'),
 ]

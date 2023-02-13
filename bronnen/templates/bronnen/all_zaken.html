@@ -1,0 +1,40 @@
+<!-- bronnen/templates/bronnen/all_zaken.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title|title }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    <table class="table table-striped table-sm table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Zaak_id</th>
+          <th scope="col">Zaak-bron</th>
+          <th scope="col">Zaaktype</th>
+          <th scope="col">Zaak-onderwerp</th>
+          <th scope="col">Betrokkene</th>
+          <th scope="col">Casemanager</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if zaken_list %}
+         {% for zaak in zaken_list %}   
+            <tr>
+              <th scope="row"><a href="{{ zaak.get_absolute_url }}">{{ zaak.id }}</a></th>
+              <td> {{ zaak.bron }}</td>
+              <td> {{ zaak.zaaktype }}</td>
+              <td> {{ zaak.zaakonderwerp }}</td>
+              <td> {{ zaak.betrokkene }}</td>
+              <td> {{ zaak.casemanager }}</td>
+            </tr>
+          {% endfor %}  
+        {% endif %}
+      </tbody>
+    </table>
+    {% include 'includes/pagina_nav.html' %}
+  </div>
+{% endblock content %}

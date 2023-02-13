@@ -4,6 +4,7 @@ import uuid
 
 # Django
 from django.db import models
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 from waarmerken.models import Zaaktype
@@ -34,9 +35,10 @@ class Betrokkene(models.Model):
 # Zaak model
 class Zaak(models.Model):
   # relaties
-  betrokkene    = models.ForeignKey(Betrokkene, blank=True, null=True, on_delete=models.SET_NULL, related_name='zaken')
-  bron          = models.ForeignKey(Bron, blank=True, null=True, on_delete=models.SET_NULL, related_name='zaken')
-  zaaktype      = models.ForeignKey(Zaaktype, blank=True, null=True, on_delete=models.SET_NULL, related_name='zaken')
+  betrokkene  = models.ForeignKey(Betrokkene, blank=True, null=True, on_delete=models.SET_NULL, default='onbekend', related_name='zaken')
+  bron        = models.ForeignKey(Bron, blank=True, null=True, on_delete=models.SET_NULL, related_name='zaken')
+  zaaktype    = models.ForeignKey(Zaaktype, blank=True, null=True, on_delete=models.SET_NULL, related_name='zaken')
+  casemanager  = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='zaken')
   # attributen
   zaakonderwerp = models.CharField('zaakonderwerp', max_length=100)
   class Meta:

@@ -4,7 +4,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 
 from django.core.paginator import Paginator
@@ -12,6 +12,18 @@ from django.core.paginator import Paginator
 # local
 from .models import Verwerking
 from .forms import VerwerkingForm
+
+# index view
+# classbased view 
+class indexView(TemplateView):
+	"""
+    Verwerkingen index page.
+
+    **Template:**
+
+    :template:`verwerkingen/index.html`
+    """
+	template_name = "verwerkingen/index.html"
 
 #all verwerkingen classbased
 class all_verwerkingenView(ListView):

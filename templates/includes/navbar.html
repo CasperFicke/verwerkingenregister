@@ -15,14 +15,25 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'site-basis:home' %}">Home </a>
       </li> 
-      <!-- Verwerkigen menu -->
-      <li class="nav-item"><a class="nav-link" href="{% url 'verwerkingen:all-verwerkingen' %}">Verwerkingen</a></li>
+      <!-- Verwerkingen menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Verwerkingen
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="{% url 'verwerkingen:index' %}">Verwerkingen Index</a></li>
+          <li><a class="dropdown-item" href="{% url 'verwerkingen:all-verwerkingen' %}">All Verwerkingen</a></li>
+          {% if user.is_authenticated %}
+            <li><a class="dropdown-item" href="{% url 'rechten:all-rollen' %}">Rollen</a></li>
+            {% if user.is_superuser %}
+              <li><a class="dropdown-item" href="{% url 'rechten:all-rechten' %}">Rechten</a></li>
+            {% endif %}
+          {% endif %}
+        </ul>
+      </li>
       <li class="nav-item"><a class="nav-link" href="{% url 'algoritmes:all-algoritmes' %}">Algoritmes</a></li>
-      <li class="nav-item"><a class="nav-link" href="{% url 'waarmerken:all-documentwaarmerkingen' %}">Waarmerken</a></li>
-      {% if user.is_authenticated %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'rechten:all-rechten' %}">Rechten</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'rechten:all-rollen' %}">Rollen</a></li>
-      {% endif %}
+      <li class="nav-item"><a class="nav-link" href="{% url 'waarmerken:index' %}">Waarmerken</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'bronnen:index' %}">Zoeksysteem</a></li>
     </ul>
 
     <!-- Rechterkant van de Navbar -->
@@ -37,10 +48,10 @@
           <li><a class="dropdown-item" href="{% url 'users:edit_usersettings' %}">Edit Settings</a></li>
           <li><a class="dropdown-item" href="{% url 'users:change_password' %}">Change password</a></li>
           {% if user.userprofile.id %}
-                <a class="dropdown-item" href="{% url 'users:edit_profile' user.userprofile.id %}">Edit Profile</a>
-                <a class="dropdown-item" href="{% url 'users:show_profile' user.userprofile.id %}">Show Profile</a>
+                <a class="dropdown-item" href="{% url 'users:edit-profile' user.userprofile.id %}">Edit Profile</a>
+                <a class="dropdown-item" href="{% url 'users:show-profile' user.userprofile.id %}">Show Profile</a>
               {% else %}
-                <a class="dropdown-item" href="{% url 'users:create_profile' %}">Create Profile</a>
+                <a class="dropdown-item" href="{% url 'users:create-profile' %}">Create Profile</a>
               {% endif %}
           <li><a class="dropdown-item" href="{% url 'users:logout' %}">Logout</a></li>
         </ul>
