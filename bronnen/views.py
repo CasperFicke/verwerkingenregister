@@ -10,7 +10,7 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 from django.core.paginator import Paginator
 
 # local
-from .models import Bron, Zaak
+from .models import Bron, Betrokkene, Zaak
 #from .forms import BronForm
 
 # index view
@@ -73,11 +73,12 @@ def zoeken(request):
   if request.method == "POST":
     betrokkene = request.POST['betrokkene']
     if betrokkene is not None:
+      betrokkene_zaak  = Betrokkene.objects.filter(naam__contains = betrokkene)
       zaken_betrokkene = Zaak.objects.filter(betrokkene__naam__contains = betrokkene)
       if zaken_betrokkene:
         messages.success(request, ("zoekopdracht uitgevoerd!"))
         context['zaken_betrokkene'] = zaken_betrokkene
-        context['betrokkene']  = betrokkene
+        context['betrokkene']  = betrokkene_zaak
         context['aantalzaken'] = zaken_betrokkene.count()
         context['wmozaken']    = zaken_betrokkene.filter(bron__naam__contains = 'WMO').count()
       else:

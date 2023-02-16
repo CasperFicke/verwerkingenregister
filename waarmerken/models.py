@@ -9,6 +9,19 @@ from django_extensions.db.models import (
 	ActivatorModel,
 )
 
+# Zaakstatus model
+class Zaakstatus(models.Model):
+  class Meta:
+    ordering = ['naam']
+    verbose_name_plural = 'zaakstatussen'
+  # attributes
+  naam         = models.CharField('zaakstatus', max_length=100)
+  beschrijving = models.CharField('beschrijving', max_length=200, blank=True)
+  
+  # functie om model in de admin web-pagina te kunnen presenteren
+  def __str__(self):
+    return self.naam
+
 # Zaaktype Model
 class Zaaktype(
 	TimeStampedModel, 

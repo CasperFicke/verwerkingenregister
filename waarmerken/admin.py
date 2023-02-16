@@ -6,6 +6,7 @@ from import_export.admin import ImportExportModelAdmin
 
 # Local
 from .models import (
+  Zaakstatus,
   Zaaktype,
   Documenttype,
   Waarmerkniveau,
@@ -53,7 +54,7 @@ class InLineZaaktype(admin.StackedInline):
 # Register Documentwaarmerking
 class DocumentwaarmerkingAdmin(admin.ModelAdmin):
   #inlines = [InLineZaaktype]
-  list_display = ('combi_zaak_document', 'waarmerkniveau', 'status',)
+  list_display  = ('combi_zaak_document', 'waarmerkniveau', 'status',)
   list_editable = ('status',)
   # method to build combined field
   def combi_zaak_document(sef, obj):
@@ -64,6 +65,6 @@ admin.site.register(Documentwaarmerking, DocumentwaarmerkingAdmin)
 
 
 # Register Models without layout:
-#myModels = [Documentwaarmerking]  # iterable list
-# overall adminarea
-#admin.site.register(myModels)
+myModels = [Zaakstatus]  # iterable list
+# overall admin area
+admin.site.register(myModels)

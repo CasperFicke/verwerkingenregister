@@ -81,7 +81,7 @@ def edit_usersettings(request):
     if form.is_valid():
       form.save()
       messages.success(request, ("You successfully updated your usersettings"))
-      return redirect('index')
+      return redirect('site_basis:home')
   else:
     form = EditUsersettingsForm(instance=request.user)
   context = {'form': form}
@@ -95,7 +95,7 @@ def change_password(request):
       form.save()
       update_session_auth_hash(request, form.user)
       messages.success(request, ("You successfully changed your password"))
-      return redirect('index')
+      return redirect('site_basis:home')
   else:
     form = PasswordChangeForm(user=request.user)
   context = {'form': form}
@@ -133,4 +133,4 @@ class EditProfileView(generic.UpdateView):
   form_class    = EditProfileForm
   template_name = 'users/edit_profile.html'
   # fields      = ['bio', 'profile_pic', 'website_url', 'twitter_url', 'facebook_url']
-  success_url   = reverse_lazy ('index')
+  success_url   = reverse_lazy ('site_basis:home')

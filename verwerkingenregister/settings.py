@@ -37,9 +37,11 @@ INSTALLED_APPS = [
   'algoritmes.apps.AlgoritmesConfig',
   'waarmerken.apps.WaarmerkenConfig',
   'bronnen.apps.BronnenConfig',
+  'reserveren.apps.ReserverenConfig',
   # support packages
   'django_extensions',
   'crispy_forms',
+  'formtools',
   'import_export',
 ]
 
