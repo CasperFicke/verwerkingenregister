@@ -14,6 +14,7 @@ urlpatterns = [
   path('', include('algoritmes.urls', namespace="algoritmes")),
   path('', include('waarmerken.urls', namespace="waarmerken")),
   path('', include('bronnen.urls', namespace="bronnen")),
+  path('', include('reserveren.urls', namespace="reserveren")),
   # debug urls
   #path("__debug__", include('debug_toolbar.urls')),
 ]
