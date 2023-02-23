@@ -16,14 +16,19 @@ from .models import Bron, Betrokkene, Zaak
 # index view
 # classbased view 
 class indexView(TemplateView):
-	"""
+  """
     Bronnen index page.
 
     **Template:**
 
     :template:`bronnen/index.html`
-    """
-	template_name = "bronnen/index.html"
+  """
+  template_name = "bronnen/index.html"
+
+  def get_context_data(self,*args, **kwargs):
+    context = super(indexView, self).get_context_data(*args,**kwargs)
+    context['title'] = 'Zoeksysteem-Index'
+    return context
 
 # all bronnen classbased
 class all_bronnenView(ListView):
@@ -66,10 +71,7 @@ class all_zakenView(ListView):
 
 # Zoeken view
 def zoeken(request):
-  title = 'zoeken'
-  context = {
-    'title': title
-  }
+  context = {}
   if request.method == "POST":
     betrokkene = request.POST['betrokkene']
     if betrokkene is not None:
@@ -78,9 +80,9 @@ def zoeken(request):
       if zaken_betrokkene:
         messages.success(request, ("zoekopdracht uitgevoerd!"))
         context['zaken_betrokkene'] = zaken_betrokkene
-        context['betrokkene']  = betrokkene_zaak
-        context['aantalzaken'] = zaken_betrokkene.count()
-        context['wmozaken']    = zaken_betrokkene.filter(bron__naam__contains = 'WMO').count()
+        context['betrokkene']       = betrokkene_zaak
+        context['aantalzaken']      = zaken_betrokkene.count()
+        context['wmozaken']         = zaken_betrokkene.filter(bron__naam__contains = 'WMO').count()
       else:
         messages.success(request, ("geen zaken voor " + betrokkene + " gevonden!"))
       return render(request, 'bronnen/zoeken.html', context)
@@ -88,4 +90,5 @@ def zoeken(request):
       messages.success(request, ("There was an error logging in. Please Try Again..."))
       return redirect('users:login')
   else:
+    context ['title'] = 'Zoeken'
     return render(request, 'bronnen/zoeken.html', context)
