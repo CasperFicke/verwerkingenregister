@@ -37,6 +37,7 @@ INSTALLED_APPS = [
   'algoritmes.apps.AlgoritmesConfig',
   'waarmerken.apps.WaarmerkenConfig',
   'bronnen.apps.BronnenConfig',
+  'geoworkflow.apps.GeoworkflowConfig',
   'reserveren.apps.ReserverenConfig',
   # support packages
   'django_extensions',

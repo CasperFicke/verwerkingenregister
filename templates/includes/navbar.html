@@ -34,6 +34,15 @@
       <li class="nav-item"><a class="nav-link" href="{% url 'algoritmes:all-algoritmes' %}">Algoritmes</a></li>
       <li class="nav-item"><a class="nav-link" href="{% url 'waarmerken:index' %}">Waarmerken</a></li>
       <li class="nav-item"><a class="nav-link" href="{% url 'bronnen:index' %}">Zoeksysteem</a></li>
+       <!-- Geoworkflow menu -->
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Geoworkflow
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="{% url 'geoworkflow:index' %}">Geoworkflow Index</a></li>
+        </ul>
+      </li>
        <!-- Reserveren menu -->
        <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
