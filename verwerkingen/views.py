@@ -81,7 +81,7 @@ def delete_verwerking(request, verwerking_uuid):
   if request.user.is_superuser:
     verwerking.delete()
     messages.success(request, ("Verwerking " + verwerking.naam + " has been deleted!"))
-    return redirect ('all-verwerkingen')
+    return redirect ('verwerkingen:all-verwerkingen')
   else:
     messages.success(request, ("Verwerking " + verwerking.naam + " is not yours to delete!"))
-    return redirect ('all-verwerkingen')
+    return redirect ('verwerkingen:all-verwerkingen')
