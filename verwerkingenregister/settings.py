@@ -39,6 +39,7 @@ INSTALLED_APPS = [
   'bronnen.apps.BronnenConfig',
   'geoworkflow.apps.GeoworkflowConfig',
   'reserveren.apps.ReserverenConfig',
+  'contacts.apps.ContactsConfig',
   # support packages
   'django_extensions',
   'crispy_forms',

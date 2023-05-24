@@ -16,6 +16,7 @@ urlpatterns = [
   path('', include('bronnen.urls'     , namespace="bronnen")),
   path('', include('geoworkflow.urls' , namespace="geoworkflow")),
   path('', include('reserveren.urls'  , namespace="reserveren")),
+  path('', include('contacts.urls'    , namespace="contacts")),
   # debug urls
   #path("__debug__", include('debug_toolbar.urls')),
 ]

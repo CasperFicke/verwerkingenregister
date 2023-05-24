@@ -19,7 +19,7 @@
     <!-- App Styles -->
     {% block css_files %}
     {% endblock css_files%}
-    
+    <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- App Scripts head -->
@@ -32,7 +32,7 @@
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
   </head>
 
-  <body>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <!-- Navbar -->
     {% include 'includes/navbar.html' %}
     <!-- Messages -->
