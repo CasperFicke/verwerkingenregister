@@ -15,13 +15,12 @@
   </div>
   <div class="my-4">
     <button type="button" class="btn btn-success me-2"
-    hx-get="{% url 'contacts:create-contact' %}"
-    hx-target="#contact-forms"
-    hx-swap="beforeend">+ Add contact
-  </button>
-  <button type="button" class="btn btn-primary" id="submit-all"> Submit all
-  </button>
-
+      hx-get="{% url 'contacts:create-contact' %}"
+      hx-target="#contact-forms"
+      hx-swap="beforeend">+ Add contact
+    </button>
+    <button type="button" class="btn btn-primary" id="submit-all"> Submit all
+    </button>
   </div>
 
   <ul id="contact-list">
