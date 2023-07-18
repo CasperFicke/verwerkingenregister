@@ -24,6 +24,11 @@
     <br>
     {% for verwerkersovereenkomst in verwerker.verwerkersovereenkomsten.all %}
     <a href="{{ verwerkersovereenkomst.get_absolute_url }}">{{ verwerkersovereenkomst.naam }}</a>; {{ verwerkersovereenkomst.beschrijving }}<br>
+      {% for verwerking in verwerkersovereenkomst.verwerkingen.all %}
+        -  <a href="{{ verwerking.get_absolute_url }}">{{ verwerking.naam }}</a>,
+      <br> 
+      {% endfor %}
+      <br>
     {% endfor %}
     <br>
   </div>
