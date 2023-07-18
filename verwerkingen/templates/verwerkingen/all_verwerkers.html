@@ -1,0 +1,44 @@
+<!-- verwerkingen/templates/verwerkingen/all_verwerkers.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title|title }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    <table class="table table-striped table-sm table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">verwerker</th>
+          <th scope="col">beschrijving</th>
+          <th scope="col">verwerkingsovereenkomsten/verwerkingen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if verwerkers_list %}
+         {% for verwerker in verwerkers_list %}   
+            <tr>
+              <th scope="row"><a href="{{ verwerker.get_absolute_url }}">{{ verwerker.naam }}</a></th>
+              <td>{{ verwerker.beschrijving }}</td>
+              <td>
+                {% for verwerkingsovereenkomst in verwerker.verwerkersovereenkomsten.all %}
+                <a href="{{ verwerkingsovereenkomst.get_absolute_url }}">{{ verwerkingsovereenkomst.naam }}</a>,
+                  <br>
+                    {% for verwerking in verwerkingsovereenkomst.verwerkingen.all %}
+                      -  <a href="{{ verwerking.get_absolute_url }}">{{ verwerking.naam }}</a>,
+                    <br> 
+                    {% endfor %}
+                  <br>
+                {% endfor %}
+              </td>
+            </tr>
+          {% endfor %}  
+        {% endif %}
+      </tbody>
+    </table>
+    {% include 'includes/pagina_nav.html' %}
+  </div>
+{% endblock content %}

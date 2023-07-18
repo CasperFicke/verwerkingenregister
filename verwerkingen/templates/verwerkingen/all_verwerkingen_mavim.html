@@ -1,0 +1,27 @@
+<!-- verwerkingen/templates/verwerkingen/all_verwerkingen_mavim.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title|title }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    {% if verwerkingen %}
+      <table>
+        {% for verwerking in verwerkingen %}
+          {% for item_1, item_2 in verwerking.items %}
+          <tr>
+              <td>{{ item_1 }}</td>
+              <td>{{ item_2 }}</td>
+          </tr>
+          {% endfor %}
+          <br>
+          {% endfor %}
+          <br>
+      </table>
+    {% endif %}
+  </div>
+{% endblock content %}

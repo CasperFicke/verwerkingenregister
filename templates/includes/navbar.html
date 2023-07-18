@@ -23,6 +23,7 @@
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li><a class="dropdown-item" href="{% url 'verwerkingen:index' %}">Verwerkingen Index</a></li>
           <li><a class="dropdown-item" href="{% url 'verwerkingen:all-verwerkingen' %}">All Verwerkingen</a></li>
+          <li><a class="dropdown-item" href="{% url 'verwerkingen:all-verwerkingen-mavim' %}">Mavim Verwerkingen</a></li>
           {% if user.is_authenticated %}
             <li><a class="dropdown-item" href="{% url 'rechten:all-rollen' %}">Rollen</a></li>
             {% if user.is_superuser %}

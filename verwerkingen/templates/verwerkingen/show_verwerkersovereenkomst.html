@@ -1,0 +1,34 @@
+<!-- verwerkingen/templates/verwerkingen/show_verwerkersovereenkomst.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ verwerking.naam }}
+{% endblock title %}
+
+{% block content %}
+   <!-- ***** Breadcrumb Area Start ***** -->
+   <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <a href="{% url 'site-basis:home' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'verwerkingen:all-verwerkersovereenkomsten' %}"> Verwerkersovereenkomsten</a> / {{ verwerkersovereenkomst.naam }}
+      </div0>
+      <hr>
+    </div>
+  </div>
+  <!-- ***** Breadcrumb Area End ***** -->
+  <div class="container">
+    Naam: {{ verwerkersovereenkomst.naam }} <br>
+    Beschrijving: {{ verwerkersovereenkomst.beschrijving }} <br>
+    Startdatum: {{ verwerkersovereenkomst.vwo_start}} <br>
+    Einddatum: {{ verwerkersovereenkomst.vwo_end }} <br>
+    Extern: {{ verwerkersovereenkomst.extern }} <br>
+    <br>
+    Verwerker: <a href="{{ verwerkersovereenkomst.verwerker.get_absolute_url }}">{{ verwerkersovereenkomst.verwerker.naam }}</a><br><br>
+    Verwerkingen:<br>
+    {% for verwerking in verwerkersovereenkomst.verwerkingen.all %}
+      - <a href="{{ verwerking.get_absolute_url }}">{{ verwerking.naam }}</a>,<br>
+    {% endfor %}
+    <br>
+  </div>
+{% endblock content %}

@@ -1,0 +1,30 @@
+<!-- verwerkingen/templates/verwerkingen/show_verwerker.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ verwerking.naam }}
+{% endblock title %}
+
+{% block content %}
+   <!-- ***** Breadcrumb Area Start ***** -->
+   <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <a href="{% url 'site-basis:home' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'verwerkingen:all-verwerkers' %}"> Verwerkers</a> / {{ verwerker.naam }}
+      </div>
+      <hr>
+    </div>
+  </div>
+  <!-- ***** Breadcrumb Area End ***** -->
+  <div class="container">
+    Verwerker: {{ verwerker.naam }} <br>
+    <br>
+    Verwerkersovereenkomst(en):
+    <br>
+    {% for verwerkersovereenkomst in verwerker.verwerkersovereenkomsten.all %}
+    <a href="{{ verwerkersovereenkomst.get_absolute_url }}">{{ verwerkersovereenkomst.naam }}</a>; {{ verwerkersovereenkomst.beschrijving }}<br>
+    {% endfor %}
+    <br>
+  </div>
+{% endblock content %}

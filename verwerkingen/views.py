@@ -9,8 +9,11 @@ from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteVi
 
 from django.core.paginator import Paginator
 
+import os
+import json
+
 # local
-from .models import Verwerking
+from .models import Verwerking, Verwerker, Verwerkersovereenkomst
 from .forms import VerwerkingForm
 
 # index view
@@ -25,7 +28,7 @@ class indexView(TemplateView):
     """
 	template_name = "verwerkingen/index.html"
 
-#all verwerkingen classbased
+# all verwerkingen classbased
 class all_verwerkingenView(ListView):
   model               = Verwerking
   template_name       = 'verwerkingen/all_verwerkingen.html'
@@ -33,7 +36,7 @@ class all_verwerkingenView(ListView):
   paginate_by         = 10
 
   def get_context_data(self, **kwargs):
-    context  = super(all_verwerkingenView, self).get_context_data(**kwargs)
+    context           = super(all_verwerkingenView, self).get_context_data(**kwargs)
     context ['title'] = 'Verwerkingen'
     verwerkingen_list = Verwerking.objects.all()
     context ['aantal']= verwerkingen_list.count()
@@ -44,6 +47,23 @@ class all_verwerkingenView(ListView):
     context ['page_count'] = page_count
     return  context
 
+# all verwerkingen mavim functionbased
+def all_verwerkingen_mavimView(request):
+  title = 'mavim verwerkingen'
+  # mavimverwerkingen
+  #verwerkingen = os.path.join('data', '20230606_Verwerwerkingsaktiviteiten.json')
+  # Opening JSON file
+  with open('data/20230606_Verwerwerkingsaktiviteiten.json') as json_file:
+    data = json.load(json_file)
+    print(data[:2])
+    # Print the type of data variable
+    print("Type:", type(data))
+  context = {
+    'title': title,
+    'verwerkingen': data
+  }
+  return render(request, 'verwerkingen/all_verwerkingen_mavim.html', context)
+  
 # show verwerking classbased
 class show_verwerkingView(DetailView):
   model               = Verwerking
@@ -85,3 +105,58 @@ def delete_verwerking(request, verwerking_uuid):
   else:
     messages.success(request, ("Verwerking " + verwerking.naam + " is not yours to delete!"))
     return redirect ('verwerkingen:all-verwerkingen')
+
+
+# all verwerkers classbased
+class all_verwerkersView(ListView):
+  model               = Verwerker
+  template_name       = 'verwerkingen/all_verwerkers.html'
+  context_object_name = 'verwerkers_list'
+  paginate_by         = 10
+
+  def get_context_data(self, **kwargs):
+    context           = super(all_verwerkersView, self).get_context_data(**kwargs)
+    context ['title'] = 'Verwerkers'
+    verwerkers_list   = Verwerker.objects.all()
+    context ['aantal']= verwerkers_list.count()
+    paginator         = Paginator(verwerkers_list, self.paginate_by)
+    page_number       = self.request.GET.get('page')
+    verwerkers_page = paginator.get_page(page_number)
+    page_count        = "a" * verwerkers_page.paginator.num_pages
+    context ['page_count'] = page_count
+    return  context
+
+# show verwerker classbased
+class show_verwerkerView(DetailView):
+  model               = Verwerker
+  template_name       = 'verwerkingen/show_verwerker.html'
+  context_object_name = 'verwerker'
+  def get_object(self):
+    return Verwerker.objects.get(pk=self.kwargs['verwerker_id'])
+
+# all verwerkersovereenkomsten classbased
+class all_verwerkersovereenkomstenView(ListView):
+  model               = Verwerkersovereenkomst
+  template_name       = 'verwerkingen/all_verwerkersovereenkomsten.html'
+  context_object_name = 'verwerkersovereenkomsten_list'
+  paginate_by         = 10
+
+  def get_context_data(self, **kwargs):
+    context           = super(all_verwerkersovereenkomstenView, self).get_context_data(**kwargs)
+    context ['title'] = 'Verwerkersovereenkomsten'
+    verwerkersovereenkomsten_list   = Verwerkersovereenkomst.objects.all()
+    context ['aantal']= verwerkersovereenkomsten_list.count()
+    paginator         = Paginator(verwerkersovereenkomsten_list, self.paginate_by)
+    page_number       = self.request.GET.get('page')
+    verwerkersovereenkomsten_page = paginator.get_page(page_number)
+    page_count        = "a" * verwerkersovereenkomsten_page.paginator.num_pages
+    context ['page_count'] = page_count
+    return  context
+  
+# show verwerkersovereenkomst classbased
+class show_verwerkersovereenkomstView(DetailView):
+  model               = Verwerkersovereenkomst
+  template_name       = 'verwerkingen/show_verwerkersovereenkomst.html'
+  context_object_name = 'verwerkersovereenkomst'
+  def get_object(self):
+    return Verwerkersovereenkomst.objects.get(pk=self.kwargs['verwerkersovereenkomst_id'])

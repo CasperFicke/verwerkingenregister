@@ -100,6 +100,9 @@ class Verwerker(models.Model):
   end_at         = models.DateField('end at', editable=False, blank=True, null=True, help_text='End date of the record')
   created        = models.DateTimeField(auto_now_add=True, help_text='Date of registration')
   
+  # create absolute url
+  def get_absolute_url(self):
+    return reverse('verwerkingen:show-verwerker', args=[self.id])
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam
@@ -125,6 +128,9 @@ class Verwerkersovereenkomst(models.Model):
   end_at       = models.DateField('end at', editable=False, blank=True, null=True, help_text='End date of the record')
   created      = models.DateTimeField(auto_now_add=True, help_text='Date of registration')
   
+  # create absolute url
+  def get_absolute_url(self):
+    return reverse('verwerkingen:show-verwerkersovereenkomst', args=[self.id])
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return self.naam

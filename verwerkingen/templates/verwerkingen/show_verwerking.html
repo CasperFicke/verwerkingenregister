@@ -56,15 +56,16 @@
         {% endfor %}
       </tbody>
     </table>
-    <br>
     Ontvangers: 
     {% for ontvanger in verwerking.ontvangers.all %}
-      {{ ontvanger.naam }}, 
+      {{ ontvanger.naam }},<br>
     {% endfor %}
-    <br>
-    Verwerkersovereenkomst: 
+    <br><br>
+    Verwerkersovereenkomst:<br>
     {% for verwerkersovereenkomst in verwerking.verwerkersovereenkomsten.all %}
-      {{ verwerkersovereenkomst.naam }}, {{ verwerkersovereenkomst.verwerker }}, <a href="{{ verwerkersovereenkomst.pdf.url }}">download</a>, 
+      naam: <a href="{{ verwerkersovereenkomst.get_absolute_url }}">{{ verwerkersovereenkomst.naam }}</a>,<br>
+      verwerker: <a href="{{ verwerkersovereenkomst.verwerker.get_absolute_url }}">{{ verwerkersovereenkomst.verwerker }}</a>,<br>
+      overeenkomst: <a href="{{ verwerkersovereenkomst.pdf.url }}">download</a>, <br>
     {% endfor %}
     <br>
   </div>
