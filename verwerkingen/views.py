@@ -2,14 +2,13 @@
 
 # django
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
-
 from django.core.paginator import Paginator
 
-import os
 import json
 
 # local
@@ -133,6 +132,25 @@ class show_verwerkerView(DetailView):
   context_object_name = 'verwerker'
   def get_object(self):
     return Verwerker.objects.get(pk=self.kwargs['verwerker_id'])
+
+# Add verwerker
+class VerwerkerCreateView(CreateView):
+  model         = Verwerker
+  template_name = 'verwerkingen/verwerkerform.html'
+  fields        = ['naam', 'beschrijving']
+  success_url   = reverse_lazy('verwerkingen:all-verwerkers')
+
+# Update verwerker
+class VerwerkerUpdateView(UpdateView):
+  model         = Verwerker
+  template_name = 'verwerkingen/verwerkerform.html'
+  fields        = ['naam', 'beschrijving']
+
+# Delete verwerker
+class VerwerkerDeleteView(DeleteView):
+  model         = Verwerker
+  template_name = 'verwerkingen/verwerker_confirm_delete.html'
+  success_url   = reverse_lazy('verwerkingen:all-verwerkers')
 
 # all verwerkersovereenkomsten classbased
 class all_verwerkersovereenkomstenView(ListView):

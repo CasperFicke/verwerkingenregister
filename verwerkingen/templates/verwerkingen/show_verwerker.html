@@ -19,6 +19,7 @@
   <!-- ***** Breadcrumb Area End ***** -->
   <div class="container">
     Verwerker: {{ verwerker.naam }} <br>
+    Beschrijving: {{ verwerker.beschrijving }} <br>
     <br>
     Verwerkersovereenkomst(en):
     <br>
@@ -31,5 +32,11 @@
       <br>
     {% endfor %}
     <br>
+    {% if user.is_authenticated %}
+      <br>
+      <a href="{% url 'verwerkingen:update-verwerker' verwerker.pk %}?next={{request.get_full_path}}" class="btn btn-secondary" >Edit</a>
+      <a href="{% url 'verwerkingen:delete-verwerker' verwerker.pk %}" class="btn btn-secondary" >Delete</a>
+    {% endif %}
+    <a href="{% url 'verwerkingen:all-verwerkers' %}" class="btn btn-secondary">Terug</a>
   </div>
 {% endblock content %}

@@ -1,0 +1,17 @@
+<!-- verwerkingen/templates/verwerkingen/verwerker_conform_delete.html -->
+
+{% extends 'base.html' %}
+
+{% block title%}
+  verwerker confirm delete
+{% endblock title %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete verwerker {{ verwerker.naam }} ?</p>
+    <button type="submit" class="btn btn-primary">Confirm</button>
+  </form>
+  <br>
+  <a href="{% url 'verwerkingen:all-verwerkers' %}" class="btn btn-secondary">Cancel</a>
+{% endblock content %}
