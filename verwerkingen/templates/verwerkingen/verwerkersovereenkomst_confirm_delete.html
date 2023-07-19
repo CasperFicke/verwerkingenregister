@@ -10,8 +10,8 @@
   <form method="post">
     {% csrf_token %}
     <p>Are you sure you want to delete verwerkersovereenkomst {{ verwerkersovereenkomst.naam }} ?</p>
-    <button type="submit" class="btn btn-primary">Confirm</button>
+    <button type="submit" class="btn btn-primary">Confirm <i class="fas fa-solid fa-check"></i></button>
   </form>
   <br>
-  <a href="{% url 'verwerkingen:all-verwerkers' %}" class="btn btn-secondary">Cancel</a>
+  <a href="{% url 'verwerkingen:all-verwerkers' %}" class="btn btn-secondary">Cancel <i class="fas fa-solid fa-arrow-left"></i></a>
 {% endblock content %}

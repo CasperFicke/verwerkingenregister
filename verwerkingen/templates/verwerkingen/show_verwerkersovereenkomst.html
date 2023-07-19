@@ -3,7 +3,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  {{ verwerking.naam }}
+  {{ verwerkersovereenkomst.naam }}
 {% endblock title %}
 
 {% block content %}
@@ -30,5 +30,11 @@
       - <a href="{{ verwerking.get_absolute_url }}">{{ verwerking.naam }}</a>,<br>
     {% endfor %}
     <br>
+    {% if user.is_authenticated %}
+      <br>
+      <a href="#" class="btn btn-secondary" >Edit <i class="fas fa-edit"></i></a>
+      <a href="{% url 'verwerkingen:delete-verwerkersovereenkomst' verwerkersovereenkomst.pk %}" class="btn btn-secondary" >Delete <i class="fas fa-trash-alt"></i></a>
+    {% endif %}
+    <a href="{% url 'verwerkingen:all-verwerkers' %}" class="btn btn-secondary">Terug <i class="fas fa-solid fa-arrow-left"></i></a>
   </div>
 {% endblock content %}

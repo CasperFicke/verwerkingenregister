@@ -18,17 +18,14 @@ from .models import Verwerking, Verwerker, Verwerkersovereenkomst
 from .forms import VerwerkingForm, VerwerkersovereenkomstForm
 from datetime import datetime, timedelta, date
 
-# index view
-# classbased view 
+# index view classbased
 class indexView(TemplateView):
-	"""
-    Verwerkingen index page.
+  template_name = "verwerkingen/index.html"
 
-    **Template:**
-
-    :template:`verwerkingen/index.html`
-    """
-	template_name = "verwerkingen/index.html"
+  def get_context_data(self, **kwargs):
+    context = super(indexView, self).get_context_data(**kwargs)
+    context['title'] = 'Beheer Verwerkingen'
+    return context
 
 # all verwerkingen classbased
 class all_verwerkingenView(ListView):
@@ -150,7 +147,7 @@ class show_verwerkerView(DetailView):
   context_object_name = 'verwerker'
   def get_object(self):
     return Verwerker.objects.get(pk=self.kwargs['verwerker_id'])
-
+  
 # Add verwerker
 class VerwerkerCreateView(CreateView):
   model         = Verwerker

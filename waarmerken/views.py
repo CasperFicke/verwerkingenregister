@@ -17,14 +17,20 @@ from .forms import DocumentwaarmerkingForm
 # index view
 # classbased view 
 class indexView(TemplateView):
-	"""
+  """
     Waarmerken indexe page.
 
     **Template:**
 
     :template:`waarmerken/index.html`
     """
-	template_name = "waarmerken/index.html"
+  template_name = "waarmerken/index.html"
+
+  def get_context_data(self, **kwargs):
+    context = super(indexView, self).get_context_data(**kwargs)
+    context['title'] = 'Waarmerken'
+    return context
+
 
 
 # all Zaaktypen classbased
