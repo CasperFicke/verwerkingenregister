@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
-from django.http import HttpResponse, request
+from django.http import HttpResponse
 from django.core.paginator import Paginator
 
 import json
@@ -15,7 +15,7 @@ import csv
 
 # local
 from .models import Verwerking, Verwerker, Verwerkersovereenkomst
-from .forms import VerwerkingForm, VerwerkersovereenkomstForm
+from .forms import VerwerkingForm
 from datetime import datetime, timedelta, date
 
 # index view
@@ -170,39 +170,24 @@ class VerwerkerDeleteView(DeleteView):
   template_name = 'verwerkingen/verwerker_confirm_delete.html'
   success_url   = reverse_lazy('verwerkingen:all-verwerkers')
 
-# all verwerkersovereenkomsten
-def all_verwerkersovereenkomsten(request):
-  title       = 'verwerkersovereenkomsten'
-  verwerkersovereenkomsten_list  = Verwerkersovereenkomst.objects.all().order_by('naam')
-  verwerkersovereenkomsten_count = verwerkersovereenkomsten_list.count()
-  submitted = False
-  if request.method == "POST":
-    form = VerwerkersovereenkomstForm(request.POST, request.FILES)
-    if form.is_valid():
-      verwerkersovereenkomst = form.save()
-  else:
-    form = VerwerkersovereenkomstForm
-    if 'submitted' in request.GET:
-      submitted = True
- 
-  # Set up pagination
-  paginator    = Paginator(verwerkersovereenkomsten_list, 5) # Show 5 verwerkersovereenkomsten per page.
-  page_number  = request.GET.get('page')
-  verwerkersovereenkomsten_page  = paginator.get_page(page_number)
-  page_count   = "a" * verwerkersovereenkomsten_page.paginator.num_pages
-  is_paginated = verwerkersovereenkomsten_page.has_other_pages
+# all verwerkersovereenkomsten classbased
+class all_verwerkersovereenkomstenView(ListView):
+  model               = Verwerkersovereenkomst
+  template_name       = 'verwerkingen/all_verwerkersovereenkomsten.html'
+  context_object_name = 'verwerkersovereenkomsten_list'
+  paginate_by         = 10
 
-  context  = {
-    'title'        : title,
-    'form'         : form,
-    'submitted'    : submitted,
-    'verwerkersovereenkomsten_list': verwerkersovereenkomsten_list,
-    'aantal'       : verwerkersovereenkomsten_count,
-    'page_obj'     : verwerkersovereenkomsten_page,
-    'is_paginated' : is_paginated,
-    'page_count'   : page_count
-  }
-  return  render(request, 'verwerkingen/all_verwerkersovereenkomsten.html', context)
+  def get_context_data(self, **kwargs):
+    context           = super(all_verwerkersovereenkomstenView, self).get_context_data(**kwargs)
+    context ['title'] = 'Verwerkersovereenkomsten'
+    verwerkersovereenkomsten_list   = Verwerkersovereenkomst.objects.all()
+    context ['aantal']= verwerkersovereenkomsten_list.count()
+    paginator         = Paginator(verwerkersovereenkomsten_list, self.paginate_by)
+    page_number       = self.request.GET.get('page')
+    verwerkersovereenkomsten_page = paginator.get_page(page_number)
+    page_count        = "a" * verwerkersovereenkomsten_page.paginator.num_pages
+    context ['page_count'] = page_count
+    return  context
   
 # show verwerkersovereenkomst classbased
 class show_verwerkersovereenkomstView(DetailView):
@@ -211,9 +196,3 @@ class show_verwerkersovereenkomstView(DetailView):
   context_object_name = 'verwerkersovereenkomst'
   def get_object(self):
     return Verwerkersovereenkomst.objects.get(pk=self.kwargs['verwerkersovereenkomst_id'])
-
-# Delete verwerkersovereenkomst
-class VerwerkersovereenkomstDeleteView(DeleteView):
-  model         = Verwerkersovereenkomst
-  template_name = 'verwerkingen/verwerkersovereenkomst_confirm_delete.html'
-  success_url   = reverse_lazy('verwerkingen:all-verwerkersovereenkomsten')

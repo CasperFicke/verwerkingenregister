@@ -121,7 +121,7 @@ class Verwerkersovereenkomst(models.Model):
   extern       = models.BooleanField('Extern', default=False)
   # relaties
   verwerker    = models.ForeignKey('verwerker', on_delete=models.CASCADE, related_name='verwerkersovereenkomsten')
-  verwerkingen = models.ManyToManyField('verwerking', related_name='verwerkersovereenkomsten')
+  verwerkingen = models.ManyToManyField('verwerking', blank=True, related_name='verwerkersovereenkomsten')
   # secundair
   uuid         = models.UUIDField(unique=True, editable=False, default=uuid.uuid4, help_text='Unique identifier (UUID4)')
   start_at     = models.DateField('start at', auto_now=True, help_text='Start date of the record')

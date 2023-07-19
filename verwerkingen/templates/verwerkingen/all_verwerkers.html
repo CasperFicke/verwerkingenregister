@@ -10,7 +10,8 @@
   {% include 'includes/breadcrumb.html' %}
   <div class="container">
     {% if user.is_authenticated %}
-      <a href="{% url 'verwerkingen:add-verwerker' %}" class="btn btn-secondary">Add verwerker</a>
+	  <a href="{% url 'verwerkingen:csv-verwerkers' %}" class="btn btn-outline-secondary">Export to CSV <i class="fas fa-file-csv"></i></a>
+      <a href="{% url 'verwerkingen:add-verwerker' %}" class="btn btn-outline-secondary">Add verwerker <i class="fas fa-solid fa-plus"></i></a>
     {% else %}
       <a href="{% url 'verwerkingen:add-verwerker' %}">Login</a> to add a verwerker.</a>
     {% endif %}
@@ -30,11 +31,11 @@
          {% for verwerker in verwerkers_list %}   
             <tr>
               {% if user.is_authenticated %}
-                <td><a href="{% url 'verwerkingen:update-verwerker' verwerker.pk %}" class="btn btn-secondary" >Edit</a></td>
-                <td><a href="{% url 'verwerkingen:delete-verwerker' verwerker.pk %}" class="btn btn-secondary" >Delete</a></td>
+                <td><a href="{% url 'verwerkingen:update-verwerker' verwerker.pk %}?next={{request.get_full_path}}" class="btn btn-outline-secondary"><i class="fas fa-edit"></i></a></td>
+                <td><a href="{% url 'verwerkingen:delete-verwerker' verwerker.pk %}" class="btn btn-outline-danger" ><i class="fas fa-trash-alt"></i></a></td>
               {% else %}
-                <td>Not allowed</td>
-                <td>Not allowed</td>
+                <td><i class="fas fa-ban"></i></td>
+                <td><i class="fas fa-ban"></i></td>
               {% endif %}
               <th scope="row"><a href="{{ verwerker.get_absolute_url }}">{{ verwerker.naam }}</a></th>
               <td>{{ verwerker.beschrijving }}</td>

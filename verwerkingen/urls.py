@@ -13,8 +13,9 @@ from .views import (
   VerwerkerCreateView,
   VerwerkerUpdateView,
   VerwerkerDeleteView,
-  all_verwerkersovereenkomstenView,
-  show_verwerkersovereenkomstView)
+  all_verwerkersovereenkomsten,
+  show_verwerkersovereenkomstView,
+  VerwerkersovereenkomstDeleteView)
 
 app_name = "verwerkingen"
 
@@ -31,11 +32,14 @@ urlpatterns = [
   path('verwerkingen/mavimverwerkingen/'                    , views.all_verwerkingen_mavimView, name='all-verwerkingen-mavim'),
   # verwerkers
   path('verwerkingen/verwerkers/'                           , all_verwerkersView.as_view(), name='all-verwerkers'),
+  path('verwerkingen/verwerkers/csv/'                       , views.csv_verwerkers, name="csv-verwerkers"),
   path('verwerkingen/verwerkers/<verwerker_id>/'            , show_verwerkerView.as_view(), name='show-verwerker'),
   path('verwerkingen/verwerkers/add'                        , VerwerkerCreateView.as_view(), name="add-verwerker"),
   path('verwerkingen/verwerkers/<int:pk>/update'            , VerwerkerUpdateView.as_view(), name="update-verwerker"),
   path('verwerkingen/verwerkers/<int:pk>/delete'            , VerwerkerDeleteView.as_view(), name="delete-verwerker"),
   # verwerkersovereenkomsten
-  path('verwerkingen/verwerkersovereenkomsten/'             , views.all_verwerkersovereenkomstenView.as_view(), name='all-verwerkersovereenkomsten'),
+  #path('verwerkingen/verwerkersovereenkomsten/'             , views.all_verwerkersovereenkomstenView.as_view(), name='all-verwerkersovereenkomsten'),
+  path('verwerkingen/verwerkersovereenkomsten/'             , views.all_verwerkersovereenkomsten, name='all-verwerkersovereenkomsten'),
   path('verwerkingen/verwerkersovereenkomsten/<verwerkersovereenkomst_id>/' , show_verwerkersovereenkomstView.as_view(), name='show-verwerkersovereenkomst'),
+  path('verwerkingen/verwerkersovereenkomsten/<int:pk>/delete' , VerwerkersovereenkomstDeleteView.as_view(), name="delete-verwerkersovereenkomst"),
   ]

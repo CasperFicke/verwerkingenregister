@@ -1,0 +1,23 @@
+<!-- verwerkingen/templates/verwerkingen/add_verwerkersovereenkomst.html -->
+
+<!-- Modal -->
+<div class="modal fade" id="addVWOModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title fs-5" id="addModalLabel">Add Verwerkersovereenkomst</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-body">
+          {{ form.as_table }}
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Submit" class="btn btn-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
