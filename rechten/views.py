@@ -1,16 +1,14 @@
 # rechten/views.py
 
-from django.shortcuts import render
+# django
 from django.views import generic
 from django.views.generic import ListView, DetailView
-
 from django.core.paginator import Paginator
 
 # local
 from .models import Rol
 
-# rechten-index view
-# classbased view 
+# rechten-index view classbased
 class all_rechtenView(generic.TemplateView):
 	"""
     Datasaets index page.

@@ -1,12 +1,13 @@
 # verwerkingen/views.py
 
 # django
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
+from django.template.response import TemplateResponse
 from django.http import HttpResponse, request
 from django.core.paginator import Paginator
 
@@ -54,14 +55,14 @@ def all_verwerkingen_mavimView(request):
   # Opening JSON file
   with open('data/20230606_Verwerwerkingsaktiviteiten.json') as json_file:
     data = json.load(json_file)
-    print(data[:2])
+    # print(data[:2])
     # Print the type of data variable
-    print("Type:", type(data))
+    # print("Type:", type(data))
   context = {
-    'title': title,
+    'title'       : title,
     'verwerkingen': data
   }
-  return render(request, 'verwerkingen/all_verwerkingen_mavim.html', context)
+  return TemplateResponse(request, 'verwerkingen/all_verwerkingen_mavim.html', context)
   
 # show verwerking classbased
 class show_verwerkingView(DetailView):
@@ -199,7 +200,7 @@ def all_verwerkersovereenkomsten(request):
     'is_paginated' : is_paginated,
     'page_count'   : page_count
   }
-  return  render(request, 'verwerkingen/all_verwerkersovereenkomsten.html', context)
+  return TemplateResponse(request, 'verwerkingen/all_verwerkersovereenkomsten.html', context)
   
 # show verwerkersovereenkomst classbased
 class show_verwerkersovereenkomstView(DetailView):

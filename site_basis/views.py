@@ -1,10 +1,8 @@
 # site_basis/views.py
 
-from django.shortcuts import render
 from django.views import generic
 
-# home view
-# classbased view 
+# home view classbased
 class HomeView(generic.TemplateView):
   """
     Website home page.
