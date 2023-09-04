@@ -1,0 +1,9 @@
+<!-- geoworkflow/templates/geoworkflow/partials/baggebeurtenissen.html -->
+
+<select class="custom-select">
+  <option selected>Kies hier de baggebeurtenis</option>
+  
+  {% for baggebeurtenis in baggebeurtenissen %}
+    <option value="{{baggebeurtenis.pk}}">{{ baggebeurtenis.naam }}</option>
+  {% endfor %}
+</select>

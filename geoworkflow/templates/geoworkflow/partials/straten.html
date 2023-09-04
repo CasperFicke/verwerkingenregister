@@ -1,0 +1,9 @@
+<!-- geoworkflow/templates/geoworkflow/partials/straten.html -->
+
+<select class="custom-select">
+  <option selected>Kies hier de straat</option>
+  
+  {% for straat in straten %}
+    <option value="{{straat.pk}}">{{ straat.naam }}</option>
+  {% endfor %}
+</select>

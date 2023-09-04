@@ -1,0 +1,47 @@
+<!-- geoworkflow/templates/geoworkflow/add_bagregistratie.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title|title }}{% endblock title %}
+
+{% block css_files %}
+{% endblock css_files%}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    <!-- gemeente / straat -->
+    <select class="custom-select mb-4"
+      name       = "gemeente"
+      hx-get     = "{% url 'geoworkflow:straten' %}" 
+      hx-trigger = "change" 
+      hx-target  = "#straten">
+      <option selected>Selecteer gemeente</option>
+      {% for gemeente in gemeenten %}
+        <option value="{{gemeente.pk}}">{{ gemeente.naam }}</option>
+      {% endfor %}
+    </select>
+
+    <div id="straten">
+      {% include 'geoworkflow/partials/straten.html' %} 
+    </div>
+    <br><br>
+    <!-- bagobject / baggebeurtenis -->
+     <select class="custom-select mb-4"
+      name       = "bagobjecttype"
+      hx-get     = "{% url 'geoworkflow:baggebeurtenissen' %}" 
+      hx-trigger = "change" 
+      hx-target  = "#baggebeurtenissen">
+      <option selected>Selecteer BAGobjecttype</option>
+      {% for bagobjecttype in bagobjecttypen %}
+        <option value="{{bagobjecttype.pk}}">{{ bagobjecttype.naam }}</option>
+      {% endfor %}
+    </select>
+
+    <div id="baggebeurtenissen">
+      {% include 'geoworkflow/partials/baggebeurtenissen.html' %} 
+    </div>
+    <br><br>
+  </div>
+{% endblock content %}

@@ -1,0 +1,50 @@
+<!-- geoworkflow/templates/geoworkflow/all_bagregistraties.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title|title }}
+{% endblock title %}
+
+{% block content %}
+  {% include 'includes/breadcrumb.html' %}
+  <div class="container">
+    <table class="table table-striped table-sm table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">besluit</th>
+          <th scope="col">datum besluit</th>
+          <th scope="col">datum ontvangst</th>
+          <th scope="col">volledig ontvangen</th>
+          <th scope="col">juist aangeleverd</th>
+          <th scope="col">gemeente</th>
+          <th scope="col">straat</th>
+          <th scope="col">Objecttype</th>
+          <th scope="col">Gebeurtenis</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if bagregistraties %}
+         {% for bagregistratie in bagregistraties %}   
+            <tr>
+              <th scope="row"><a href="{{ verwerking.get_absolute_url }}">{{ bagregistratie.besluit }}</a></th>
+              <td> {{ bagregistratie.datum_besluit }}</td>
+              <td> {{ bagregistratie.datum_ontvangst }}</td>
+              <td> {{ bagregistratie.volledig_ontvangen }}</td>
+              <td> {{ bagregistratie.juist_aangeleverd }}</td>
+              <td> {{ bagregistratie.gemeente }}</td>
+              <td> {{ bagregistratie.straat }}</td>
+              <td> {{ bagregistratie.bagobjecttype }}</td>
+              <td> {{ bagregistratie.baggebeurtenis }}</td>
+              <td><i class="fas fa-solid fa-ban"></i></td>
+              <td><i class="fas fa-solid fa-ban"></i></td>
+            </tr>
+          {% endfor %}  
+        {% endif %}
+      </tbody>
+    </table>
+    {% include 'includes/pagina_nav.html' %}
+  </div>
+{% endblock content %}
