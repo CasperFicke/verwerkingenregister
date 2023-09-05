@@ -2,9 +2,15 @@
 
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
   {{ title|title }}
 {% endblock title %}
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'bronnen/styles/all-bronnen.css' %}">
+{% endblock css_files %}
 
 {% block content %}
   {% include 'includes/breadcrumb.html' %}
@@ -15,15 +21,17 @@
           <th scope="col">Bron</th>
           <th scope="col">beschrijving</th>
           <th scope="col">URL</th>
+          <th scope="col">delete</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML swap:1s">
         {% if bronnen_list %}
          {% for bron in bronnen_list %}   
             <tr>
               <th scope="row"><a href="{{ bron.get_absolute_url }}">{{ bron.naam }}</a></th>
               <td> {{ bron.beschrijving }}</td>
               <td> {{ bron.url }}</td>
+              <td><button class="btn btn-danger" hx-delete="{% url 'bronnen:delete-bron' bron.pk %}">Delete</button></td>
             </tr>
           {% endfor %}  
         {% endif %}

@@ -2,6 +2,7 @@
 
 # django
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
@@ -40,7 +41,7 @@ class all_bronnenView(ListView):
   def get_context_data(self, **kwargs):
     context  = super(all_bronnenView, self).get_context_data(**kwargs)
     context ['title'] = 'Bronnen'
-    bronnen_list      = Bron.objects.all()
+    bronnen_list      = Bron.objects.all().order_by('naam')
     context ['aantal']= bronnen_list.count()
     paginator         = Paginator(bronnen_list, self.paginate_by)
     page_number       = self.request.GET.get('page')
@@ -48,6 +49,12 @@ class all_bronnenView(ListView):
     page_count        = "a" * bronnen_page.paginator.num_pages
     context ['page_count'] = page_count
     return  context
+
+# delete bron
+def delete_bron(request, bron_id):
+  item  = Bron.objects.get(id=bron_id)
+  item.delete()
+  return redirect('bronnen:all-bronnen')
 
 # all zaken classbased
 class all_zakenView(ListView):
