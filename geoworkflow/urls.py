@@ -15,9 +15,9 @@ urlpatterns = [
 
   path('geoworkflow/bagregistraties/'    , views.bagregistraties, name='all-bagregistraties'),
   
-  # CRUD single rak
+  # CRUD single bagregistratie
   path('geoworkflow/bagregistraties/add'                 , views.add_bagregistratie, name='add-bagregistratie'),
-  #path('geoworkflow/bagregistraties/<bagregistratie_id>' , views.show_bagregistratie, name="show-bagregistratie"),
+  path('geoworkflow/bagregistraties/<bagregistratie_id>' , views.show_bagregistratie, name="show-bagregistratie"),
   #path('geoworkflow/bagregistraties/<int:pk>/update'     , BagregistratieUpdateView.as_view(), name="update-bagregistratie"),
   #path('geoworkflow/bagregistraties/<int:pk>/delete'     , BAgregistratieDeleteView.as_view(), name="delete-bagregistratie"),
   

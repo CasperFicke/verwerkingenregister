@@ -10,7 +10,9 @@ from .models import (
   Straat,
   Bagobjecttype,
   Baggebeurtenis,
-  Bagregistratie
+  Bagregistratie,
+  Notitie,
+  Status
   )
 
 # GEO workflow admin area
@@ -56,3 +58,16 @@ class BAGregistratieAdmin(ImportExportModelAdmin):
   ordering     = ('gemeente',)
 # overall admin area
 admin.site.register(Bagregistratie, BAGregistratieAdmin)
+
+class NotitieAdmin(admin.ModelAdmin):
+  list_display = ('title', 'author')
+  ordering     = ('date_added',)
+# overall admin area
+admin.site.register(Notitie, NotitieAdmin)
+
+# Register Status
+class StatusAdmin(ImportExportModelAdmin):
+  list_display = ('registratie', 'naam' )
+  ordering     = ('registratie', 'naam',)
+# overall admin area
+admin.site.register(Status, StatusAdmin)

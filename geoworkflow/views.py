@@ -6,8 +6,10 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
-
+from django.http import Http404
 from django.core.paginator import Paginator
+
+from formtools.wizard.views import SessionWizardView # form with multiple pages
 
 # local
 from .models import Gemeente, Straat, Baggebeurtenis, Bagobjecttype, Bagregistratie
@@ -24,9 +26,32 @@ class indexView(TemplateView):
     """
 	template_name = "geoworkflow/index.html"
 
+# all bagregistraties
+def bagregistraties(request):
+  title = 'bagregistraties'
+  bagregistraties = Bagregistratie.objects.all()
+  context = {
+    'title'           : title,
+    'bagregistraties' : bagregistraties,
+  }
+  return render(request, 'geoworkflow/all_bagregistraties.html', context)
+
+# show bagregistratie
+def show_bagregistratie(request, bagregistratie_id):
+  try:
+    bagregistratie = Bagregistratie.objects.get(id=bagregistratie_id)
+    title    = 'bagregistratie: ' + bagregistratie.besluit
+    context  = {
+      'title'          : title,
+      'bagregistratie' : bagregistratie,
+    }
+    return render(request, 'geoworkflow/show_bagregistratie.html', context)
+  except:
+    raise Http404()
+
 # add bagregistratie
 def add_bagregistratie(request):
-  title = 'add bagregistratie'
+  title          = 'add bagregistratie'
   bagobjecttypen = Bagobjecttype.objects.all()
   gemeenten      = Gemeente.objects.all()
   context = {
@@ -53,13 +78,3 @@ def baggebeurtenissen(request):
     'baggebeurtenissen': baggebeurtenissen
   }
   return render(request, 'geoworkflow/partials/baggebeurtenissen.html', context)
-
-# all bagregistraties
-def bagregistraties(request):
-  title = 'bagregistraties'
-  bagregistraties = Bagregistratie.objects.all()
-  context = {
-    'title'           : title,
-    'bagregistraties' : bagregistraties,
-  }
-  return render(request, 'geoworkflow/all_bagregistraties.html', context)
