@@ -8,9 +8,10 @@ from .models import Contact
 
 class ContactForm(forms.ModelForm):
   class Meta:
-    model = Contact
+    model  = Contact
     fields = (
-      'name', 'phone'
+      'name',
+      'phone'
     )
     widgets = {
       'name' : forms.TextInput(attrs={'class': 'form-control'}),

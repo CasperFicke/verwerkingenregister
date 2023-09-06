@@ -9,7 +9,12 @@ from . models import Contact
 
 # index
 def indexView(request):
-  context = { 'form': ContactForm(), 'contacts': Contact.objects.all()}
+  title = 'contactenbeheer'
+  context = {
+    'title'    : title,
+    'form'     : ContactForm(),
+    'contacts' : Contact.objects.all()
+  }
   return render(request, 'contacts/index.html', context)
 
 # create contact

@@ -9,7 +9,10 @@
 {% endblock css_files%}
 
 {% block content %}
-  <h1 class= "mb-4 text-primary">Add contacts</h1>
+  <br>
+  <h3 class= "mb-4 text-primary">Contactenbeheer</h3>
+  <br>
+  <p>contacten toevoegen</p>
   <div id="contact-forms">
     {% include 'contacts/partials/form.html' %}
   </div>
@@ -22,7 +25,8 @@
     <button type="button" class="btn btn-primary" id="submit-all"> Submit all
     </button>
   </div>
-
+  
+  <h3 class= "text-primary">Contactenlijst</h3>
   <ul id="contact-list">
     {% for contact in contacts %}
       {% include 'contacts/partials/contact.html' %}

@@ -6,14 +6,14 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
 
 from formtools.wizard.views import SessionWizardView # form with multiple pages
 
 # local
 from .models import Gemeente, Straat, Baggebeurtenis, Bagobjecttype, Bagregistratie
-#from .forms import VerwerkingForm
+from .forms import BagregistratieForm
 
 # index view
 class indexView(TemplateView):
@@ -54,10 +54,28 @@ def add_bagregistratie(request):
   title          = 'add bagregistratie'
   bagobjecttypen = Bagobjecttype.objects.all()
   gemeenten      = Gemeente.objects.all()
+  submitted      = False
+  if request.method == "POST":
+      form = BagregistratieForm(request.POST)
+      if form.is_valid():
+        bagregistratie = form.save(commit=False)
+        bagregistratie.author = request.user
+        bagregistratie.save()
+        return HttpResponseRedirect('/geoworkflow/bagregistraties/add?submitted=True')
+  else:
+    # just opening the page; not submitting
+      form = BagregistratieForm
+  if 'submitted' in request.GET:
+    submitted = True
+  #form           = BagregistratieForm(request.POST or None)
+  #if form.is_valid():
+  #  form.save()
   context = {
     'title'          : title,
     'gemeenten'      : gemeenten,
     'bagobjecttypen' : bagobjecttypen,
+    'form'           : form,
+    'submitted'      : submitted
   }
   return render(request, 'geoworkflow/add_bagregistratie.html', context)
 

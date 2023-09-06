@@ -1,6 +1,9 @@
 <!-- geoworkflow/templates/geoworkflow/add_bagregistratie.html -->
 
 {% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
 {% load static %}
 
 {% block title %}{{ title|title }}{% endblock title %}
@@ -12,51 +15,104 @@
   {% include 'includes/breadcrumb.html' %}
   <div class="container">
     {% if user.is_authenticated %}
-     
-  {% else %}
-    <h3> Opvragen van deze pagina is niet toegestaan. Hiervoor moet u ingelogd zijn!</h3>
-    <a href="{% url 'users:sign-in' %}?next={{request.path}}">Login here</a>
-  {% endif %}
-
-
-    <!-- gemeente / straat -->
-    <select class="custom-select mb-4"
-      name       = "gemeente"
-      hx-get     = "{% url 'geoworkflow:straten' %}" 
-      hx-trigger = "change" 
-      hx-target  = "#straten">
-      <option selected>Selecteer gemeente</option>
-      {% for gemeente in gemeenten %}
-        <option value="{{gemeente.pk}}">{{ gemeente.naam }}</option>
-      {% endfor %}
-    </select>
-
-    <div id="straten">
-      {% include 'geoworkflow/partials/straten.html' %} 
-    </div>
-    <br><br>
-    <!-- bagobject / baggebeurtenis -->
-    <select class="custom-select mb-4"
-      name       = "bagobjecttype"
-      hx-get     = "{% url 'geoworkflow:baggebeurtenissen' %}" 
-      hx-trigger = "change" 
-      hx-target  = "#baggebeurtenissen">
-      <option selected>Selecteer BAGobjecttype</option>
-      {% for bagobjecttype in bagobjecttypen %}
-        <option value="{{bagobjecttype.pk}}">{{ bagobjecttype.naam }}</option>
-      {% endfor %}
-    </select>
-
-    <div id="baggebeurtenissen">
-      {% include 'geoworkflow/partials/baggebeurtenissen.html' %} 
-    </div>
-    <br><br>
-    <form action="" method=POST>
-      {% csrf_token %}
-      <input type="submit" value="Submit" class="btn btn-secondary">
-    </form>
+      <form action="" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <!-- gemeente -->
+        <div class="row">
+          <div class="col-3 col-md-2">
+            <label>{{ form.gemeente.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            <select class="custom-select mb-4"
+              name       = "gemeente"
+              hx-get     = "{% url 'geoworkflow:straten' %}" 
+              hx-trigger = "change" 
+              hx-target  = "#straten">
+              <option selected>Selecteer gemeente</option>
+              {% for gemeente in gemeenten %}
+                <option value="{{gemeente.pk}}">{{ gemeente.naam }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <!-- straat -->
+        <div class="row">
+          <div class="col-3 col-md-2">
+            <label for="{{ for.straat.id_for_label }}">{{ form.straat.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            <div id="straten">
+              {% include 'geoworkflow/partials/straten.html' %} 
+            </div>
+            <br>
+          </div>
+        </div>
+        <!-- bagobjecttype -->
+        <div class="row">
+          <div class="col-3 col-md-2">
+            <label>{{ form.bagobjecttype.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            <select class="custom-select mb-4"
+              name       = "bagobjecttype"
+              hx-get     = "{% url 'geoworkflow:baggebeurtenissen' %}" 
+              hx-trigger = "change" 
+              hx-target  = "#baggebeurtenissen">
+              <option selected>Selecteer BAGobjecttype</option>
+              {% for bagobjecttype in bagobjecttypen %}
+                <option value="{{bagobjecttype.pk}}">{{ bagobjecttype.naam }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <!-- baggebeurtenis -->
+        <div class="row">
+          <div class="col-3 col-md-2">
+            <label>{{ form.baggebeurtenis.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            <div id="baggebeurtenissen">
+              {% include 'geoworkflow/partials/baggebeurtenissen.html' %} 
+            </div>
+          </div>
+        </div>
+        <!-- besluit -->
+        <div class="row">
+          <div class="col-3 col-md-2">
+            <label>{{ form.besluit.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            {{ form.besluit }}
+          </div>
+        </div>
+        <!-- datum ontvangst -->
+        <div class="row">
+          <div class="col-3 col-md-2">
+            <label>{{ form.datum_ontvangst.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            {{ form.datum_ontvangst }}
+          </div>
+        </div>
+        <!-- datum besluit -->
+        <div class="row">
+          <div class="col-3 col-md-2">
+            <label>{{ form.datum_besluit.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            {{ form.datum_besluit }}
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Toevoegen</button>
+      </form>
+      <br>
+    {% else %}
+      <h3> Opvragen van deze pagina is niet toegestaan. Hiervoor moet u ingelogd zijn!</h3>
+      <a href="{% url 'users:login' %}?next={{request.path}}">Login here</a>
+      <br>
+    {% endif %}
+    <a href="{% url 'geoworkflow:all-bagregistraties' %}" class="btn btn-secondary">Terug</a>
     <br>
-    <a href="{% url 'geoworkflow:all-bagregistraties' %}" class="btn btn-secondary">Cancel</a>
-    <br><br>  
   </div>
 {% endblock content %}
