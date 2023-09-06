@@ -67,9 +67,6 @@ def add_bagregistratie(request):
       form = BagregistratieForm
   if 'submitted' in request.GET:
     submitted = True
-  #form           = BagregistratieForm(request.POST or None)
-  #if form.is_valid():
-  #  form.save()
   context = {
     'title'          : title,
     'gemeenten'      : gemeenten,

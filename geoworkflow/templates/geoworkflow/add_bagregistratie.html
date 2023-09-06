@@ -12,7 +12,14 @@
 {% endblock css_files%}
 
 {% block content %}
-  {% include 'includes/breadcrumb.html' %}
+  <!-- breadcrumb -->
+  <a href="{% url 'geoworkflow:index' %}"><i class="fa fa-home"></i> Home</a> / <a href="{% url 'geoworkflow:all-bagregistraties' %}">Bagregistraties</a>/add bagregistratie
+  <div class="row">
+    <div class="col-12">
+    </div>
+    <hr>
+    <h2>Add Bagregistratie</h2>
+  </div>
   <div class="container">
     {% if user.is_authenticated %}
       <form action="" method="POST" autocomplete="off">
@@ -103,6 +110,33 @@
             {{ form.datum_besluit }}
           </div>
         </div>
+         <!-- volledig ontvangen -->
+         <div class="row">
+          <div class="col-3 col-md-2">
+            <label>{{ form.volledig_ontvangen.label }}</label>
+          </div>
+          <div class="col-3 align-self-end">
+            {{ form.volledig_ontvangen }}
+          </div>
+        </div>
+        <!-- juist aangeleverd -->
+        <div class="row">
+         <div class="col-3 col-md-2">
+           <label>{{ form.juist_aangeleverd.label }}</label>
+         </div>
+         <div class="col-3 align-self-end">
+           {{ form.juist_aangeleverd }}
+         </div>
+       </div>
+       <!-- tarief -->
+       <div class="row">
+        <div class="col-3 col-md-2">
+          <label>{{ form.tarief.label }}</label>
+        </div>
+        <div class="col-3 align-self-end">
+          {{ form.tarief }}
+        </div>
+      </div>
         <br>
         <button type="submit" class="btn btn-primary">Toevoegen</button>
       </form>
