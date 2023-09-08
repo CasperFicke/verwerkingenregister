@@ -22,14 +22,31 @@
     Gemeente: {{ bagregistratie.gemeente }} <br>
     Straat: {{ bagregistratie.straat }} <br>
     <br>
-    Notitie(s):
-    <br>
-    {% for notitie in bagregistratie.notities.all %}
-      - {{ notitie.title }} : {{ notitie.body }}
-      <br>
-    {% endfor %}
-    <br>
-   
     <a href="{% url 'geoworkflow:all-bagregistraties' %}" class="btn btn-secondary">Terug <i class="fas fa-solid fa-arrow-left"></i></a>
+    <h2>Notities:</h2>
+    <hr>
+    <!-- list all notities for this bagregistratie -->
+    {% if not bagregistratie.notities.all %}
+      Er zijn nog geen notities.. 
+      <br><br>
+    {% else %}
+      {% for notitie in bagregistratie.notities.all %}
+        <strong>
+          title: {{ notitie.title }}<br>
+          date: {{ notitie.date_added }}
+        </strong>
+        <br>
+        Notitie: {{ notitie.body }}
+        <hr>
+        <br>
+      {% endfor %}
+      <br>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <a href="{% url 'geoworkflow:add-notitie' bagregistratie.pk %}" class="btn btn-secondary">Add Notitie</a>
+      <br><br>
+    {% else %}
+      <a href="{% url 'geoworkflow:add-notitie' bagregistratie.pk %}">Login</a> to add notie.
+    {% endif %}
   </div>
 {% endblock content %}

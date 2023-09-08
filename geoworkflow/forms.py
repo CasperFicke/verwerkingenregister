@@ -4,7 +4,7 @@
 from django import forms
 from django.forms import ModelForm, DateInput
 
-from .models import Bagregistratie
+from .models import Bagregistratie, Notitie
 
 # BAGregistratie form
 class BagregistratieForm(ModelForm):
@@ -44,4 +44,17 @@ class BagregistratieForm(ModelForm):
       #'volledig_ontvangen' : forms.CheckboxInput(),
       #'juist_aangeleverd'  : forms.CheckboxInput(),
       #'tarief'             : forms.Select(attrs={'class': 'form-control'}) 
+    }
+
+# Notitie form
+class NotitieForm(forms.ModelForm):
+  class Meta:
+    model = Notitie
+    fields = (
+      'title',
+      'body'
+    )
+    widgets = {
+      'title' : forms.TextInput(attrs={'class': 'form-control'}),
+      'body'  : forms.TextInput(attrs={'class': 'form-control'})
     }

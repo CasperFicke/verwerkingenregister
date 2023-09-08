@@ -12,8 +12,8 @@ from django.core.paginator import Paginator
 from formtools.wizard.views import SessionWizardView # form with multiple pages
 
 # local
-from .models import Gemeente, Straat, Baggebeurtenis, Bagobjecttype, Bagregistratie
-from .forms import BagregistratieForm
+from .models import Gemeente, Straat, Baggebeurtenis, Bagobjecttype, Bagregistratie, Notitie
+from .forms import BagregistratieForm, NotitieForm
 
 # index view
 class indexView(TemplateView):
@@ -29,7 +29,7 @@ class indexView(TemplateView):
 # all bagregistraties
 def bagregistraties(request):
   title = 'bagregistraties'
-  bagregistraties = Bagregistratie.objects.all()
+  bagregistraties = Bagregistratie.objects.all().order_by('gemeente', '-datum_besluit')
   context = {
     'title'           : title,
     'bagregistraties' : bagregistraties,
@@ -40,14 +40,36 @@ def bagregistraties(request):
 def show_bagregistratie(request, bagregistratie_id):
   try:
     bagregistratie = Bagregistratie.objects.get(id=bagregistratie_id)
-    title    = 'bagregistratie: ' + bagregistratie.besluit
+    print(bagregistratie)
+    #title    = 'bagregistratie: ' + bagregistratie.besluit
     context  = {
-      'title'          : title,
+      #'title'          : title,
       'bagregistratie' : bagregistratie,
     }
     return render(request, 'geoworkflow/show_bagregistratie.html', context)
   except:
     raise Http404()
+
+# add notitie
+def add_notitie(request, bagregistratie_id):
+  title = 'Add Notitie'
+  bagregistratie = Bagregistratie.objects.get(id=bagregistratie_id)
+  if request.method == "POST":
+    form = NotitieForm(request.POST)
+    if form.is_valid():
+      notitie = form.save(commit=False)
+      notitie.author = request.user
+      notitie.bagregistratie = bagregistratie
+      notitie.save()
+      messages.success(request, ("Notitie has been added!"))
+      return HttpResponseRedirect('/geoworkflow/bagregistraties/')
+  else:
+    form = NotitieForm
+  context = {
+    'title' : title,
+    'form'  : form,
+  }
+  return render(request, 'geoworkflow/add_notitie.html', context)
 
 # add bagregistratie
 def add_bagregistratie(request):

@@ -5,7 +5,14 @@ import uuid
 # Django
 from django.db import models
 from django.urls import reverse
+from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+
+# abstracts from django extensions
+from django_extensions.db.models import (
+  TimeStampedModel,
+	ActivatorModel 
+)
 
 # Gemeente model
 class Gemeente(models.Model):
@@ -13,6 +20,7 @@ class Gemeente(models.Model):
     ordering            = ['naam']
     verbose_name        = 'gemeente'
     verbose_name_plural = 'gemeenten'
+    constraints         = [models.UniqueConstraint(fields=['naam', 'email'], name='unique gemeente')]
   # attributes
   naam  = models.CharField('gemeentenaam', max_length=100)
   email = models.EmailField('E-mail', max_length=100)
@@ -26,6 +34,7 @@ class Straat(models.Model):
     ordering            = ['naam']
     verbose_name        = 'straat'
     verbose_name_plural = 'straten'
+    constraints         = [models.UniqueConstraint(fields=['naam', 'gemeente'], name='unique straat')]
   # attributes
   naam     = models.CharField('straatnaam', max_length=100)
   # relaties
@@ -82,13 +91,18 @@ class Bagregistratie(models.Model):
     ordering            = ['datum_ontvangst']
     verbose_name        = 'BAG-registratie'
     verbose_name_plural = 'BAG registraties'
+    #constraints         = [models.CheckConstraint(check=Q(age__gte=18), name='age_gte_18')]
   class TariefTypes(models.TextChoices):
     HOOG = "hoog"
     LAAG = "laag"
     NVT  = "n.v.t."
+  name_regex = RegexValidator(
+    regex   = r'^[a-zA-Z, 0-9]+$',
+    message = "Gebruik alleen letters en cijfers. Geen speciale karakters"
+  )
   # attributes
-  lokatieomschrijving = models.CharField('Lokatieomschrijving', blank=True, max_length=250)
-  besluit             = models.CharField('besluit', blank=True, max_length=100)
+  lokatieomschrijving = models.CharField('Lokatieomschrijving', validators=[name_regex], blank=True, max_length=250)
+  besluit             = models.CharField('besluit', validators=[name_regex], blank=True, max_length=100)
   datum_besluit       = models.DateField('Datum besluit', blank=True, null=True)
   datum_ontvangst     = models.DateField('Datum ontvangst', blank=True, null=True)
   volledig_ontvangen  = models.BooleanField('Volledig ontvangen', default=False)
@@ -108,14 +122,31 @@ class Bagregistratie(models.Model):
   # functie om model in de admin web-pagina te kunnen presenteren
   def __str__(self):
     return f'{self.besluit}'
+
+# NotitieType model
+class NotitieType(TimeStampedModel,ActivatorModel,models.Model):
+  class Meta:
+    ordering            = ['type']
+    verbose_name        = 'notitie-type'
+    verbose_name_plural = 'notitie types'
+  # attributes
+  type         = models.CharField('Notitie Type', max_length=100)
+  beschrijving = models.TextField('Beschrijving', blank=True)
+  # secundair
+  uuid         = models.UUIDField(unique=True, default=uuid.uuid4, help_text='Unique identifier (UUID4)')
   
+  # functie om model in de admin web-pagina te kunnen presenteren
+  def __str__(self):
+    return self.type
+
 # Notitie Model
 class Notitie (models.Model):
   title      = models.CharField(max_length=255)
   body       = models.TextField(max_length=300)
   date_added = models.DateTimeField(auto_now_add=True)
   # relaties
-  baggebeurtenis = models.ForeignKey(Bagregistratie, on_delete=models.CASCADE, related_name="notities")
+  type           = models.ForeignKey(NotitieType, blank=True, null=True, on_delete=models.SET_NULL, related_name='notities')
+  bagregistratie = models.ForeignKey(Bagregistratie, on_delete=models.CASCADE, related_name="notities")
   author         = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='notities')
 
   # functie om in de admin web-pagina te kunnen presenteren

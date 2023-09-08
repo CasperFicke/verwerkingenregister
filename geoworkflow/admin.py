@@ -11,6 +11,7 @@ from .models import (
   Bagobjecttype,
   Baggebeurtenis,
   Bagregistratie,
+  NotitieType,
   Notitie,
   Status
   )
@@ -58,6 +59,12 @@ class BAGregistratieAdmin(ImportExportModelAdmin):
   ordering     = ('gemeente',)
 # overall admin area
 admin.site.register(Bagregistratie, BAGregistratieAdmin)
+
+class NotitieTypeAdmin(admin.ModelAdmin):
+  list_display = ('type', 'beschrijving')
+  ordering     = ('type',)
+# overall admin area
+admin.site.register(NotitieType, NotitieTypeAdmin)
 
 class NotitieAdmin(admin.ModelAdmin):
   list_display = ('title', 'author')
