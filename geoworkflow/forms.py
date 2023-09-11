@@ -13,6 +13,7 @@ class BagregistratieForm(ModelForm):
     fields = (
       'gemeente',
       'straat',
+      'huisnummer',
       'bagobjecttype',
       'baggebeurtenis', 
       'besluit', 'datum_besluit', 
@@ -24,6 +25,7 @@ class BagregistratieForm(ModelForm):
     labels  = {
       'gemeente'           : 'Gemeente',
       'straat'             : 'straat',
+      'huisnummer'         : 'huisnummer',
       'bagobjecttype'      : 'bagobjecttype',
       'baggebeurtenis'     : 'baggebeurtenis',
       'besluit'            : 'besluit',
@@ -36,6 +38,7 @@ class BagregistratieForm(ModelForm):
     widgets = {
       'gemeente'           : forms.TextInput(attrs={'class': 'form-control'}),
       'straat'             : forms.TextInput(attrs={'class': 'form-control'}),
+      'huisnummer'         : forms.TextInput(attrs={'class': 'form-control'}),
       'bagobjecttype'      : forms.TextInput(attrs={'class': 'form-control'}),
       'baggebeurtenis'     : forms.TextInput(attrs={'class': 'form-control'}),
       'besluit'            : forms.TextInput(attrs={'class': 'form-control'}),
@@ -51,10 +54,12 @@ class NotitieForm(forms.ModelForm):
   class Meta:
     model = Notitie
     fields = (
+      'type',
       'title',
       'body'
     )
     widgets = {
+      'type'  : forms.Select(attrs={'class': 'form-control'}),
       'title' : forms.TextInput(attrs={'class': 'form-control'}),
       'body'  : forms.TextInput(attrs={'class': 'form-control'})
     }

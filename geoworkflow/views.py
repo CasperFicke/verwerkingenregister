@@ -40,11 +40,12 @@ def bagregistraties(request):
 def show_bagregistratie(request, bagregistratie_id):
   try:
     bagregistratie = Bagregistratie.objects.get(id=bagregistratie_id)
-    print(bagregistratie)
+    aant_notities = len(bagregistratie.notities.all())
     #title    = 'bagregistratie: ' + bagregistratie.besluit
     context  = {
       #'title'          : title,
       'bagregistratie' : bagregistratie,
+      'aant_notities'  : aant_notities,
     }
     return render(request, 'geoworkflow/show_bagregistratie.html', context)
   except:

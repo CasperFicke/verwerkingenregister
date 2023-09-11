@@ -21,8 +21,7 @@
     Besluit: {{ bagregistratie.besluit }} <br>
     Gemeente: {{ bagregistratie.gemeente }} <br>
     Straat: {{ bagregistratie.straat }} <br>
-    <br>
-    <a href="{% url 'geoworkflow:all-bagregistraties' %}" class="btn btn-secondary">Terug <i class="fas fa-solid fa-arrow-left"></i></a>
+    Huisnummer: {{ bagregistratie.huisnummer }} <br>
     <h2>Notities:</h2>
     <hr>
     <!-- list all notities for this bagregistratie -->
@@ -31,15 +30,14 @@
       <br><br>
     {% else %}
       {% for notitie in bagregistratie.notities.all %}
-        <strong>
-          title: {{ notitie.title }}<br>
-          date: {{ notitie.date_added }}
-        </strong>
+        title: {{ notitie.title }} - datum: {{ notitie.date_added }} - <strong>type: {{ notitie.type }}</strong>
         <br>
         Notitie: {{ notitie.body }}
         <hr>
         <br>
       {% endfor %}
+      <br>
+      aantal notities: {{ aant_notities }}
       <br>
     {% endif %}
     {% if user.is_authenticated %}
@@ -48,5 +46,7 @@
     {% else %}
       <a href="{% url 'geoworkflow:add-notitie' bagregistratie.pk %}">Login</a> to add notie.
     {% endif %}
+    <br>
+    <a href="{% url 'geoworkflow:all-bagregistraties' %}" class="btn btn-secondary">Terug <i class="fas fa-solid fa-arrow-left"></i></a>
   </div>
 {% endblock content %}

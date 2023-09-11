@@ -102,6 +102,7 @@ class Bagregistratie(models.Model):
   )
   # attributes
   lokatieomschrijving = models.CharField('Lokatieomschrijving', validators=[name_regex], blank=True, max_length=250)
+  huisnummer          = models.CharField('Huisnummer', validators=[name_regex], blank=True, max_length=20)
   besluit             = models.CharField('besluit', validators=[name_regex], blank=True, max_length=100)
   datum_besluit       = models.DateField('Datum besluit', blank=True, null=True)
   datum_ontvangst     = models.DateField('Datum ontvangst', blank=True, null=True)
