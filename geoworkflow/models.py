@@ -14,6 +14,21 @@ from django_extensions.db.models import (
 	ActivatorModel 
 )
 
+from datetime import date, timedelta
+
+# Termijn model
+class Termijn(models.Model):
+  class Meta:
+    ordering            = ['naam']
+    verbose_name        = 'Termijn'
+    verbose_name_plural = 'Termijnen'
+  # attributes
+  naam    = models.CharField('termijnnaam', max_length=100)
+  termijn = models.IntegerField('termijn in dagen', blank=True, null=True, default=0)
+  # functie om model in de admin web-pagina te kunnen presenteren
+  def __str__(self):
+    return f'{self.naam} - {self.termijn} dagen'
+
 # Gemeente model
 class Gemeente(models.Model):
   class Meta:
@@ -116,6 +131,46 @@ class Bagregistratie(models.Model):
   bagobjecttype       = models.ForeignKey('Bagobjecttype', blank=True, null=True, on_delete=models.CASCADE, related_name='bagregistraties')
   baggebeurtenis      = models.ForeignKey('Baggebeurtenis', blank=True, null=True, on_delete=models.CASCADE, related_name='bagregistraties')
   status              = models.ForeignKey('Status', blank=True, null=True, on_delete=models.CASCADE, related_name='bagregistraties')
+  
+  # method om te bepalen of bagregistratie nog geldig is
+  @property
+  def valid(self):
+    today    = date.today()
+    if self.datum_ontvangst < today:
+      valid = False
+    else:
+      valid = True
+    return valid
+  
+  # method om te bepalen of bagregistratie op tijd verwerkt is
+  @property
+  def optijdverwerkt(self):
+    maxverwerkt  = date.today()
+    if self.datum_ontvangst < maxverwerkt:
+      valid = False
+    else:
+      valid = True
+    return valid
+  
+  # method to calculate number of days left to verwerk bagregistratie
+  @property
+  def days_till_eindeverwerkingstijd(self):
+    today    = date.today()
+    num_days = self.datum_ontvangst - today
+    termijn = Termijn.objects.get(naam='BAG - Maximale verwerkingstermijn')
+    end_date = self.datum_ontvangst + timedelta(days=termijn.termijn)
+    #einddatum = today + timedelta(days=termijn)
+    #print(num_days)
+    print('termijn:', termijn.termijn)
+    print('einddatum:',  end_date)
+    num_days_stripped = int(str(num_days).split(' ', 1)[0]) + termijn.termijn
+    print(num_days_stripped)
+    if num_days_stripped > termijn.termijn:
+      return num_days_stripped
+    elif num_days_stripped == 0:
+      return 'vandaag'
+    else:
+      return f"{num_days_stripped} dagen te laat"
   
   # create absolute url
   def get_absolute_url(self):

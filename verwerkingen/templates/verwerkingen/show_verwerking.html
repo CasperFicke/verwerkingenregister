@@ -56,12 +56,12 @@
         {% endfor %}
       </tbody>
     </table>
-    Ontvangers: 
+    Ontvanger(s):<br>
     {% for ontvanger in verwerking.ontvangers.all %}
       {{ ontvanger.naam }},<br>
     {% endfor %}
-    <br><br>
-    Verwerkersovereenkomst:<br>
+    <br>
+    Verwerkersovereenkomst(en):<br>
     {% for verwerkersovereenkomst in verwerking.verwerkersovereenkomsten.all %}
       naam: <a href="{{ verwerkersovereenkomst.get_absolute_url }}">{{ verwerkersovereenkomst.naam }}</a>,<br>
       verwerker: <a href="{{ verwerkersovereenkomst.verwerker.get_absolute_url }}">{{ verwerkersovereenkomst.verwerker }}</a>,<br>

@@ -6,6 +6,7 @@ from import_export.admin import ImportExportModelAdmin
 
 # local
 from .models import (
+  Termijn,
   Gemeente,
   Straat,
   Bagobjecttype,
@@ -25,6 +26,13 @@ class GEOworkflowAdminArea(admin.AdminSite):
 GEOworkflow_adminsite = GEOworkflowAdminArea(name = 'GEOworkflowAdmin')
 
 # Models
+
+# Register Termijn
+class TermijnAdmin(ImportExportModelAdmin):
+  list_display = ('naam', 'termijn')
+  ordering     = ('naam',)
+# overall admin area
+admin.site.register(Termijn, TermijnAdmin)
 
 # Register Gemeente
 class GemeenteAdmin(ImportExportModelAdmin):

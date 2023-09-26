@@ -11,6 +11,9 @@ from django.core.paginator import Paginator
 
 from formtools.wizard.views import SessionWizardView # form with multiple pages
 
+# python
+import subprocess
+
 # local
 from .models import Gemeente, Straat, Baggebeurtenis, Bagobjecttype, Bagregistratie, Notitie
 from .forms import BagregistratieForm, NotitieForm
@@ -29,6 +32,15 @@ class indexView(TemplateView):
 # all bagregistraties
 def bagregistraties(request):
   title = 'bagregistraties'
+  wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
+  # print(wifi)
+  data = wifi.decode('utf-8')
+  # print(type(data))
+  # print(data)
+  if "gemeentepurmerend" in data:
+    print("connected to wifi van de gemeente Purmerend")
+  else:
+    print("not connected")
   bagregistraties = Bagregistratie.objects.all().order_by('gemeente', '-datum_besluit')
   context = {
     'title'           : title,

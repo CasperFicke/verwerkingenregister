@@ -82,15 +82,16 @@ def zoeken(request):
   if request.method == "POST":
     betrokkene = request.POST['betrokkene']
     if betrokkene is not None:
-      betrokkene_zaak  = Betrokkene.objects.filter(naam__contains = betrokkene)
-      zaken_betrokkene = Zaak.objects.filter(betrokkene__naam__contains = betrokkene)
-      if zaken_betrokkene:
-        messages.success(request, ("zoekopdracht uitgevoerd!"))
-        context['zaken_betrokkene'] = zaken_betrokkene
-        context['betrokkene']       = betrokkene_zaak
-        context['aantalzaken']      = zaken_betrokkene.count()
-        context['wmozaken']         = zaken_betrokkene.filter(bron__naam__contains = 'WMO').count()
-      else:
+      try:
+        betrokkene_zaak  = Betrokkene.objects.filter(naam__contains = betrokkene).values()[0]
+        zaken_betrokkene = Zaak.objects.filter(betrokkene__naam__contains = betrokkene)
+        if zaken_betrokkene:
+          messages.success(request, ("zoekopdracht uitgevoerd!"))
+          context['zaken_betrokkene'] = zaken_betrokkene
+          context['betrokkene']       = betrokkene_zaak
+          context['aantalzaken']      = zaken_betrokkene.count()
+          context['wmozaken']         = zaken_betrokkene.filter(bron__naam__contains = 'WMO').count()
+      except:
         messages.success(request, ("geen zaken voor " + betrokkene + " gevonden!"))
       return render(request, 'bronnen/zoeken.html', context)
     else:
