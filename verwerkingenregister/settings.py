@@ -129,11 +129,11 @@ STATICFILES_DIRS = [
   os.path.join(BASE_DIR, 'media')
 ]
 
-STATIC_URL  = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles" # The absolute filesystem path to the directory where collectstatic will collect static files for deployment.
+STATIC_URL  = "/static/"               # URL to use when referring to static files located in STATIC_ROOT.
 
-MEDIA_URL  = "/media/"
-MEDIA_ROOT = BASE_DIR / "mediafiles"
+MEDIA_ROOT = BASE_DIR / "mediafiles"   # The absolute filesystem path to the directory that will hold user-stored files.
+MEDIA_URL  = "/media/"                 # URL that handles the media served from MEDIA_ROOT, used for managing stored files.
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

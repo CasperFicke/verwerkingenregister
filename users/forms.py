@@ -131,6 +131,7 @@ class ProfileForm(forms.ModelForm):
     fields = (
       'bio',
       'profile_pic',
+      'country',
       'website_url',
       'twitter_url',
       'facebook_url'
@@ -150,6 +151,7 @@ class EditProfileForm(forms.ModelForm):
     fields = (
       'bio',
       'profile_pic',
+      'country',
       'website_url',
       'twitter_url',
       'facebook_url'

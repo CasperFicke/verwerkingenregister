@@ -10,9 +10,9 @@
     <div class="row no-gutters">
       <div class="col-md-2">
         {% if page_user.profile_pic %}
-          <img src="{{ page_user.profile_pic.url }}" class="card-img">
+          <img src="{{ page_user.profile_pic.url }}" alt="{{ page_user.user.first_name }}" class="card-img">
           {% else %}
-            <img src="{% static 'users/images/standard.png' %}" class="card-img">
+            <img src="{% static 'users/images/standard.png' %}" alt="{{ page_user.user.first_name }}" class="card-img">
         {% endif %}
       </div>
       <div class="col-md-10">
