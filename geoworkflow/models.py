@@ -157,7 +157,7 @@ class Bagregistratie(models.Model):
   def days_till_eindeverwerkingstijd(self):
     today    = date.today()
     num_days = self.datum_ontvangst - today
-    termijn = Termijn.objects.get(naam='BAG - Maximale verwerkingstermijn')
+    termijn  = Termijn.objects.get(naam='BAG - Maximale verwerkingstermijn')
     end_date = self.datum_ontvangst + timedelta(days=termijn.termijn)
     #einddatum = today + timedelta(days=termijn)
     #print(num_days)

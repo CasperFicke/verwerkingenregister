@@ -18,23 +18,23 @@
   </div>
   <!-- ***** Breadcrumb Area End ***** -->
   <div class="container">
-    Besluit: {{ bagregistratie.besluit }} <br>
-    Gemeente: {{ bagregistratie.gemeente }} <br>
-    Straat: {{ bagregistratie.straat }} <br>
-    Huisnummer: {{ bagregistratie.huisnummer }} <br>
-    Lokatieomschrijving: {{ bagregistratie.lokatieomschrijving }} <br>
+    Besluit: {{ bagregistratie.besluit }}<br>
+    Gemeente: {{ bagregistratie.gemeente }}<br>
+    Straat: {{ bagregistratie.straat }}<br>
+    Huisnummer: {{ bagregistratie.huisnummer }}<br>
+    Lokatieomschrijving: {{ bagregistratie.lokatieomschrijving }}<br>
     <hr>
-    BAG Objecttype: {{ bagregistratie.bagobjecttype }} <br>
-    BAG Gebeurtenis: {{ bagregistratie.baggebeurtenis }} <br>
+    BAG Objecttype: {{ bagregistratie.bagobjecttype }}<br>
+    BAG Gebeurtenis: {{ bagregistratie.baggebeurtenis }}<br>
     <hr>
-    volledig ontvangen: {{ bagregistratie.volledig_ontvangen }} <br>
-    juist aangeleverd: {{ bagregistratie.juist_aangeleverd }} <br>
+    volledig ontvangen: {% include 'includes/vink_kruis.html' with bool_var=bagregistratie.volledig_ontvangen %}<br>
+    juist aangeleverd: {% include 'includes/vink_kruis.html' with bool_var=bagregistratie.juist_aangeleverd %}<br>
     <hr>
     datum besluit: {{ bagregistratie.datum_besluit }} <br>
     datum ontvangst: {{ bagregistratie.datum_ontvangst }} <br>
     resterende tijd om te verwerken: {{ bagregistratie.days_till_eindeverwerkingstijd }} <br>
-    test.. op tijd verwerkt: {{ bagregistratie.optijdverwerkt }} <br>
-    test.. is valid: {{ bagregistratie.valid }} <br>
+    test.. op tijd verwerkt: {% include 'includes/vink_kruis.html' with bool_var=bagregistratie.optijdverwerkt %}<br>
+    test.. is valid: {% include 'includes/vink_kruis.html' with bool_var=bagregistratie.valid %}<br>
     <h2>Notities:</h2>
     <hr>
     <!-- list all notities for this bagregistratie -->

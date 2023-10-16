@@ -40,8 +40,8 @@
               <th scope="row"><a href="{{ bagregistratie.get_absolute_url }}">{{ bagregistratie.besluit }}</a></th>
               <td> {{ bagregistratie.datum_besluit }}</td>
               <td> {{ bagregistratie.datum_ontvangst }}</td>
-              <td> {{ bagregistratie.volledig_ontvangen }}</td>
-              <td> {{ bagregistratie.juist_aangeleverd }}</td>
+              <td> {% include 'includes/vink_kruis.html' with bool_var=bagregistratie.volledig_ontvangen %}</td>
+              <td> {% include 'includes/vink_kruis.html' with bool_var=bagregistratie.juist_aangeleverd %}</td>
               <td> {{ bagregistratie.straat }}</td>
               <td> {{ bagregistratie.bagobjecttype }}</td>
               <td> {{ bagregistratie.baggebeurtenis }}</td> 

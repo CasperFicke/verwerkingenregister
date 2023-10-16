@@ -3,6 +3,8 @@
 # django
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Serve images in development. NOT TO USE IN PRODUCTION
 from django.conf import settings
@@ -23,7 +25,12 @@ urlpatterns = [
   path('', include('contacts.urls'    , namespace="contacts")),
   # debug urls
   #path("__debug__", include('debug_toolbar.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # DEVELOPMENT ONLY
+]
+
+# FOR DEVELOPMENT ONLY
+if settings.DEBUG:
+  urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # url compositie voor externe toegang tot staticfiles
+  urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # url compositie voor externe toegang tot mediafiles
 
 # Configure Admin area Titles
 admin.site.site_header = "Registers Administration"      # header op admin pagina (blauwe balk)
