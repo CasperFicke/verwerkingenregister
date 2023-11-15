@@ -2,6 +2,10 @@
 
 # django
 from django.urls import path
+from django.contrib.sitemaps.views import sitemap
+
+# local
+from verwerkingen.sitemap import VerwerkingSitemap, VerwerkerSitemap
 
 # local
 from . import views
@@ -18,6 +22,12 @@ from .views import (
   VerwerkersovereenkomstDeleteView)
 
 app_name = "verwerkingen"
+
+# sitemaps
+sitemaps = {
+  'verwerkingen': VerwerkingSitemap,
+  'verwerker'   : VerwerkerSitemap
+}
 
 urlpatterns = [
   # Verwerkingen
@@ -42,4 +52,6 @@ urlpatterns = [
   path('verwerkingen/verwerkersovereenkomsten/'             , views.all_verwerkersovereenkomsten, name='all-verwerkersovereenkomsten'),
   path('verwerkingen/verwerkersovereenkomsten/<verwerkersovereenkomst_id>/' , show_verwerkersovereenkomstView.as_view(), name='show-verwerkersovereenkomst'),
   path('verwerkingen/verwerkersovereenkomsten/<int:pk>/delete' , VerwerkersovereenkomstDeleteView.as_view(), name="delete-verwerkersovereenkomst"),
+  # sitemap url
+  path('verwerkingen/sitemap.xml'                              , sitemap, {'sitemaps':sitemaps}, name= 'sitemap')
   ]
