@@ -42,6 +42,7 @@ INSTALLED_APPS = [
   'contacts.apps.ContactsConfig',
   # support packages
   'django_extensions',
+  'easyaudit',
   'crispy_forms',
   'crispy_bootstrap5',
   'formtools',
@@ -59,6 +60,7 @@ MIDDLEWARE = [
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   'django.middleware.clickjacking.XFrameOptionsMiddleware',
+  'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
 ]
 
 ROOT_URLCONF = 'verwerkingenregister.urls'
@@ -109,16 +111,22 @@ AUTH_PASSWORD_VALIDATORS = [
   },
 ]
 
+# django-easy-audit settings
+DJANGO_EASY_AUDIT_WATCH_MODEL_EVENTS   = True  # log model events 
+DJANGO_EASY_AUDIT_WATCH_AUTH_EVENTS    = True  # log authentication events
+DJANGO_EASY_AUDIT_WATCH_REQUEST_EVENTS = False # log request events
+# ignored models
+DJANGO_EASY_AUDIT_UNREGISTERED_CLASSES_EXTRA = [
+  'geoworkflow.Notitie'
+  ]
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/Amsterdam'
-
-USE_I18N = True
-
-USE_TZ = True
+USE_I18N  = True
+USE_TZ    = True
 
 
 # Static files (CSS, JavaScript, Images)

@@ -156,14 +156,18 @@ class Bagregistratie(models.Model):
   @property
   def days_till_eindeverwerkingstijd(self):
     today    = date.today()
-    num_days = self.datum_ontvangst - today
+    if self.datum_ontvangst == today:
+      num_days_stripped = 0
+    else:
+      num_days = today - self.datum_ontvangst
+      num_days_stripped = int(str(num_days).split(' ', 1)[0])
+    print('aantal dagen sinds ontvangst:', num_days_stripped)
     termijn  = Termijn.objects.get(naam='BAG - Maximale verwerkingstermijn')
     end_date = self.datum_ontvangst + timedelta(days=termijn.termijn)
     #einddatum = today + timedelta(days=termijn)
-    #print(num_days)
     print('termijn:', termijn.termijn)
     print('einddatum:',  end_date)
-    num_days_stripped = int(str(num_days).split(' ', 1)[0]) + termijn.termijn
+    #num_days_stripped = int(str(num_days).split(' ', 1)[0]) + termijn.termijn
     print(num_days_stripped)
     if num_days_stripped > termijn.termijn:
       return num_days_stripped
