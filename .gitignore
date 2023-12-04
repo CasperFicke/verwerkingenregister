@@ -4,6 +4,7 @@ db.sqlite3
 /static
 .DS_Store
 /data
+/logs
 /media
 /mediafiles
 .env
