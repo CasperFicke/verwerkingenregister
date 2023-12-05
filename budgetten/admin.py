@@ -1,3 +1,11 @@
+# budgetten/admin.py
+
+# django
 from django.contrib import admin
 
-# Register your models here.
+# local
+from .models import Project, Expense, Category
+
+admin.site.register(Project)
+admin.site.register(Expense)
+admin.site.register(Category)
