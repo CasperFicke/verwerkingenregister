@@ -28,10 +28,11 @@ class VerwerkingForm(forms.ModelForm):
 class VerwerkersovereenkomstForm(ModelForm):
   class Meta:
     model  = Verwerkersovereenkomst
-    fields = ('naam', 'beschrijving', 'verwerker', 'vwo_start', 'vwo_end', 'verwerkingen', 'extern')
+    fields = ('naam', 'beschrijving', 'pdf', 'verwerker', 'vwo_start', 'vwo_end', 'verwerkingen', 'extern')
     labels  = {
       'naam'         : 'VWO naam',
       'beschrijving' : 'VWO beschrijving',
+      'pdf'          : 'VWO document',
       'verwerker'    : 'Verwerker',
       'vwo_start'    : 'startdatum',
       'vwo_end'      : 'einddatum',
@@ -41,6 +42,7 @@ class VerwerkersovereenkomstForm(ModelForm):
     widgets = {
       'naam'         : forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'naam'}),
       'beschrijving' : forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'beschrijving'}),
+      'pdf'          : forms.FileInput(attrs={'class': 'form-control', 'placeholder': 'bestand'}),
       'verwerker'    : forms.Select(attrs={'class': 'form-select', 'placeholder': 'verwerker'}),
       'vwo_start'    : forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}, format='%Y-%m-%d'),
       'vwo_end'      : forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}, format='%Y-%m-%d'),
